@@ -1,4 +1,11 @@
-"""Curated Indian cinema movie dataset."""
+"""Curated Indian cinema movie dataset.
+
+MOVIES is a list of dictionaries with:
+- title (str), year (int), era (str), and roles (dict).
+- roles always contains exactly: Director, Lead Male, Lead Female,
+  Music Director, and Writer.
+- era groups entries into one of: Vintage, 90s, Millennium, Modern, 2021-2026.
+"""
 
 MOVIES = [
     {
