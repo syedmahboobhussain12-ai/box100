@@ -1004,8 +1004,6 @@ MOVIES = [
             "Writer": "Utkarshini Vashishtha",
         },
     },
-  
-    },
     {
         "title": "Bhool Bhulaiyaa 2",
         "year": 2022,
