@@ -137,7 +137,7 @@ def format_inr_crore(crores: float) -> str:
     fmt_whole = ",".join(chunks + [last_three]) if len(val_str) > 3 else val_str
     return f"₹{fmt_whole}.{decimals:02d} Cr"
 
-# --- DYNAMIC GAME ENGINE ---
+# --- GAME ENGINE LOGIC ---
 def get_era_pool():
     if st.session_state.chosen_era == "All":
         return MOVIES
@@ -146,27 +146,14 @@ def get_era_pool():
 def inject_release_window_and_roll():
     pool = get_era_pool()
     
-    # Filter out base anchor movies already processed
     available_movies = [m for m in pool if m["title"] not in st.session_state.seen_movies]
     if not available_movies:
         st.session_state.seen_movies = set()
         available_movies = pool
         
-    base_movie = random.choice(available_movies).copy()
-    st.session_state.seen_movies.add(base_movie["title"])
+    movie = random.choice(available_movies).copy()
+    st.session_state.seen_movies.add(movie["title"])
     
-    # --- CROSS-POLLINATION TALENT GENERATION ---
-    # We take the base movie as our structural anchor, but cross-pollinate 
-    # its talent options with options drawn randomly from the rest of the era pool!
-    dynamic_roles = {}
-    for role in ["Director", "Lead Male", "Lead Female", "Music Director", "Writer"]:
-        # 40% chance to show the actual accurate name, 60% chance to pull a dynamic wildcard from the era
-        if random.random() < 0.40:
-            dynamic_roles[role] = base_movie["roles"][role]
-        else:
-            random_alternative = random.choice(pool)
-            dynamic_roles[role] = random_alternative["roles"][role]
-            
     windows = [
         "Solo Festival Premiere 🎆",     
         "Massive Holiday Clash ⚔️",    
@@ -174,17 +161,12 @@ def inject_release_window_and_roll():
         "Hollywood Tentpole Clash 🦸‍♂️", 
         "Off-Season Dump Month 🌧️"      
     ]
-    w_idx = random.randint(0, len(windows)-1)
-    dynamic_roles["Release Window"] = windows[w_idx]
+        
+    w_idx = stable_range_score(movie["title"] + str(movie["year"]), 0, len(windows)-1)
+    movie["roles"] = movie["roles"].copy()
+    movie["roles"]["Release Window"] = windows[w_idx]
     
-    # Pack the completely customized dynamic card object
-    generated_card = {
-        "title": base_movie["title"],
-        "year": base_movie["year"],
-        "era": base_movie["era"],
-        "roles": dynamic_roles
-    }
-    return generated_card
+    return movie
 
 def generate_cinematic_title(picks: dict[str, str]) -> str:
     director = picks.get("Director", "")
@@ -310,14 +292,14 @@ else:
                 f"""
                 <div class='card' style='border-color: var(--gold); padding: 1.25rem;'>
                     <div class='movie-title'>{current_film['title']}</div>
-                    <span style='color: #b8c2dd; font-size: 1rem;'>Base Anchor Film: <strong>{current_film['title']} ({current_film['year']})</strong></span>
+                    <span style='color: #b8c2dd; font-size: 1rem;'>Era: <strong>{current_film['era']}</strong> | Year: <strong>{current_film['year']}</strong></span>
                 </div>
                 """, unsafe_allow_html=True)
             
             for role in ROLES:
                 talent_name = current_film["roles"].get(role, "Not Found")
                 is_filled = role in st.session_state.locked_picks
-                st.button(f"Draft {talent_name} as {role}", key=f"btn_{role}_{current_film['title']}_{talent_name}", disabled=is_filled, use_container_width=True, on_click=draft_talent, args=(role, talent_name, current_film["title"], current_film["year"]))
+                st.button(f"Draft {talent_name} as {role}", key=f"btn_{role}_{current_film['title']}", disabled=is_filled, use_container_width=True, on_click=draft_talent, args=(role, talent_name, current_film["title"], current_film["year"]))
         else:
             st.success("🎉 All 6 slots locked! Analyzing theatrical performance...")
 
@@ -328,8 +310,10 @@ else:
         picks = st.session_state.locked_picks
         team_dna = "".join(picks.values())
         
+        # 🎲 THE INDUSTRY X-FACTOR (Luck is now exposed!)
         luck_modifier = stable_range_score(team_dna + "luck", -10, 10)
         
+        # Generate the fun label for the luck roll
         if luck_modifier > 6: luck_label = "Viral Trailer/Hype 🚀"
         elif luck_modifier > 2: luck_label = "Positive Buzz 👍"
         elif luck_modifier >= -2: luck_label = "Standard Release 😐"
@@ -390,6 +374,7 @@ else:
         st.markdown(f"<div class='review-box'><strong>Trade Analyst Review:</strong><br>\"{rev_line1} {rev_line2}\"</div>", unsafe_allow_html=True)
 
         st.markdown("### 📊 Theatrical Run Analysis")
+        # --- NEW 3x2 METRICS GRID ---
         row1 = st.columns(3)
         row1[0].metric("Base Box Office Score", f"{box_office_score:.1f}")
         row1[1].metric(f"Industry X-Factor ({luck_label})", f"{luck_display} pts")
@@ -400,6 +385,7 @@ else:
         row2[0].metric("Opening Day", format_inr_crore(opening_day))
         row2[1].metric("Lifetime Domestic", format_inr_crore(lifetime_domestic))
         row2[2].metric("Worldwide Gross", format_inr_crore(worldwide))
+        # ----------------------------
 
         st.markdown(f"<div class='ott-banner'><span style='color: #99a2be; font-size: 0.9rem; text-transform: uppercase;'>Streaming Rights Sold To:</span><br><span style='font-size: 1.2rem;'>{ott}</span></div>", unsafe_allow_html=True)
         
