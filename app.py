@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 import streamlit as st
-
 from movies_data import MOVIES
 
 st.set_page_config(page_title="Bollywood Box Office Draft", page_icon="🎬", layout="wide")
@@ -48,34 +46,16 @@ div[data-testid="stMetric"] {
 """
 
 ELITE_TIER = {
-    "S.S. Rajamouli",
-    "Rajkumar Hirani",
-    "Sanjay Leela Bhansali",
-    "Shah Rukh Khan",
-    "Aamir Khan",
-    "Amitabh Bachchan",
-    "Prabhas",
-    "Alia Bhatt",
-    "Deepika Padukone",
-    "A.R. Rahman",
-    "M.M. Keeravani",
-    "Salim-Javed",
-    "K.V. Vijayendra Prasad",
+    "S.S. Rajamouli", "Rajkumar Hirani", "Sanjay Leela Bhansali", 
+    "Shah Rukh Khan", "Aamir Khan", "Amitabh Bachchan", "Prabhas", 
+    "Alia Bhatt", "Deepika Padukone", "A.R. Rahman", "M.M. Keeravani", 
+    "Salim-Javed", "K.V. Vijayendra Prasad",
 }
 
 PREMIUM_TIER = {
-    "Imtiaz Ali",
-    "Rohit Shetty",
-    "Siddharth Anand",
-    "Nitesh Tiwari",
-    "Ranbir Kapoor",
-    "Hrithik Roshan",
-    "Ranveer Singh",
-    "Vicky Kaushal",
-    "Kareena Kapoor",
-    "Shraddha Kapoor",
-    "Pritam",
-    "Vishal-Shekhar",
+    "Imtiaz Ali", "Rohit Shetty", "Siddharth Anand", "Nitesh Tiwari", 
+    "Ranbir Kapoor", "Hrithik Roshan", "Ranveer Singh", "Vicky Kaushal", 
+    "Kareena Kapoor", "Shraddha Kapoor", "Pritam", "Vishal-Shekhar",
 }
 
 GLOBAL_DRAWS = {"Shah Rukh Khan", "Aamir Khan", "Prabhas"}
@@ -101,11 +81,9 @@ GLOBAL_DRAW_PRESENCE_BONUS = 0.40
 CRITIC_BASE_MULTIPLIER = 4.2
 CRITIC_SYNERGY_MULTIPLIER = 0.8
 
-
 def stable_range_score(name: str, min_points: int, max_points: int) -> int:
     span = max_points - min_points + 1
     return min_points + (sum(ord(ch) for ch in name) % span)
-
 
 def dynamic_tier_score(name: str) -> int:
     if name in ELITE_TIER:
@@ -113,7 +91,6 @@ def dynamic_tier_score(name: str) -> int:
     if name in PREMIUM_TIER:
         return stable_range_score(name, PREMIUM_RANGE[0], PREMIUM_RANGE[1])
     return stable_range_score(name, BASELINE_RANGE[0], BASELINE_RANGE[1])
-
 
 def team_synergy_boost(picks: dict[str, str]) -> tuple[int, list[str]]:
     selected = set(picks.values())
@@ -133,10 +110,8 @@ def team_synergy_boost(picks: dict[str, str]) -> tuple[int, list[str]]:
         notes.append("Auteur director + A.R. Rahman musical magic (+12)")
     return boosts, notes
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
-
 
 def indian_group(number: int) -> str:
     value = str(number)
@@ -152,7 +127,6 @@ def indian_group(number: int) -> str:
         chunks.insert(0, remaining)
     return ",".join(chunks + [last_three])
 
-
 def format_inr_crore(crores: float) -> str:
     whole = int(crores)
     decimals = int(round((crores - whole) * 100))
@@ -160,7 +134,6 @@ def format_inr_crore(crores: float) -> str:
         whole += 1
         decimals = 0
     return f"₹{indian_group(whole)}.{decimals:02d} Cr"
-
 
 def calculate_box_office(box_office_score: float, critical_acclaim: float, picks: dict[str, str]) -> tuple[float, float, float]:
     score_index = clamp((box_office_score - OPENING_SCORE_BASE) / OPENING_SCORE_SPAN, 0.0, 1.0)
@@ -180,13 +153,11 @@ def calculate_box_office(box_office_score: float, critical_acclaim: float, picks
     worldwide = lifetime_domestic * overseas_multiplier
     return opening_day, lifetime_domestic, worldwide
 
-
 def lock_role(role: str) -> None:
     selected = st.session_state.get(f"pick_{role}")
     if selected:
         st.session_state.locked_picks[role] = selected
         st.rerun()
-
 
 if "locked_picks" not in st.session_state:
     st.session_state.locked_picks = {}
