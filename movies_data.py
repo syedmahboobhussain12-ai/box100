@@ -1,14 +1,7 @@
-"""Curated Indian cinema movie dataset.
-
-MOVIES is a list of dictionaries with:
-- title (str), year (int), era (str), and roles (dict).
-- roles always contains exactly: Director, Lead Male, Lead Female,
-  Music Director, and Writer.
-- era groups entries into one of: Vintage, 90s, Millennium, Modern, 2021-2026.
-"""
+"""Curated Indian cinema movie dataset."""
 
 MOVIES = [
-    {
+{
         "title": "Alam Ara",
         "year": 1931,
         "era": "Vintage",
@@ -19,8 +12,7 @@ MOVIES = [
             "Music Director": "Firozshah Mistry",
             "Writer": "Joseph David",
         },
-    },
-    {
+{
         "title": "Devdas",
         "year": 1955,
         "era": "Vintage",
@@ -31,8 +23,7 @@ MOVIES = [
             "Music Director": "S. D. Burman",
             "Writer": "Nabendu Ghosh",
         },
-    },
-    {
+{
         "title": "Mother India",
         "year": 1957,
         "era": "Vintage",
@@ -43,8 +34,7 @@ MOVIES = [
             "Music Director": "Naushad",
             "Writer": "Wajahat Mirza",
         },
-    },
-    {
+{
         "title": "Mughal-e-Azam",
         "year": 1960,
         "era": "Vintage",
@@ -55,8 +45,7 @@ MOVIES = [
             "Music Director": "Naushad",
             "Writer": "Amanullah Khan",
         },
-    },
-    {
+{
         "title": "Guide",
         "year": 1965,
         "era": "Vintage",
@@ -67,8 +56,7 @@ MOVIES = [
             "Music Director": "S. D. Burman",
             "Writer": "R. K. Narayan",
         },
-    },
-    {
+{
         "title": "Aradhana",
         "year": 1969,
         "era": "Vintage",
@@ -79,8 +67,7 @@ MOVIES = [
             "Music Director": "S. D. Burman",
             "Writer": "Sachin Bhowmick",
         },
-    },
-    {
+{
         "title": "Anand",
         "year": 1971,
         "era": "Vintage",
@@ -91,8 +78,7 @@ MOVIES = [
             "Music Director": "Salil Chowdhury",
             "Writer": "Gulzar",
         },
-    },
-    {
+{
         "title": "Pakeezah",
         "year": 1972,
         "era": "Vintage",
@@ -103,8 +89,7 @@ MOVIES = [
             "Music Director": "Ghulam Mohammed",
             "Writer": "Kamal Amrohi",
         },
-    },
-    {
+{
         "title": "Bobby",
         "year": 1973,
         "era": "Vintage",
@@ -115,20 +100,7 @@ MOVIES = [
             "Music Director": "Laxmikant-Pyarelal",
             "Writer": "Khwaja Ahmad Abbas",
         },
-    },
-    {
-        "title": "Sholay",
-        "year": 1975,
-        "era": "Vintage",
-        "roles": {
-            "Director": "Ramesh Sippy",
-            "Lead Male": "Dharmendra",
-            "Lead Female": "Hema Malini",
-            "Music Director": "R. D. Burman",
-            "Writer": "Salim Khan",
-        },
-    },
-    {
+{
         "title": "Deewaar",
         "year": 1975,
         "era": "Vintage",
@@ -139,8 +111,18 @@ MOVIES = [
             "Music Director": "R. D. Burman",
             "Writer": "Salim Khan",
         },
-    },
-    {
+{
+        "title": "Sholay",
+        "year": 1975,
+        "era": "Vintage",
+        "roles": {
+            "Director": "Ramesh Sippy",
+            "Lead Male": "Dharmendra",
+            "Lead Female": "Hema Malini",
+            "Music Director": "R. D. Burman",
+            "Writer": "Salim Khan",
+        },
+{
         "title": "Amar Akbar Anthony",
         "year": 1977,
         "era": "Vintage",
@@ -151,8 +133,7 @@ MOVIES = [
             "Music Director": "Laxmikant-Pyarelal",
             "Writer": "Kader Khan",
         },
-    },
-    {
+{
         "title": "Don",
         "year": 1978,
         "era": "Vintage",
@@ -163,8 +144,7 @@ MOVIES = [
             "Music Director": "Kalyanji-Anandji",
             "Writer": "Salim Khan",
         },
-    },
-    {
+{
         "title": "Gol Maal",
         "year": 1979,
         "era": "Vintage",
@@ -175,8 +155,7 @@ MOVIES = [
             "Music Director": "R. D. Burman",
             "Writer": "Rahi Masoom Raza",
         },
-    },
-    {
+{
         "title": "Masoom",
         "year": 1983,
         "era": "Vintage",
@@ -187,8 +166,7 @@ MOVIES = [
             "Music Director": "R. D. Burman",
             "Writer": "Gulzar",
         },
-    },
-    {
+{
         "title": "Mr. India",
         "year": 1987,
         "era": "Vintage",
@@ -199,8 +177,7 @@ MOVIES = [
             "Music Director": "Laxmikant-Pyarelal",
             "Writer": "Salim Khan",
         },
-    },
-    {
+{
         "title": "Qayamat Se Qayamat Tak",
         "year": 1988,
         "era": "Vintage",
@@ -211,8 +188,7 @@ MOVIES = [
             "Music Director": "Anand-Milind",
             "Writer": "Nasir Hussain",
         },
-    },
-    {
+{
         "title": "Tezaab",
         "year": 1988,
         "era": "Vintage",
@@ -223,8 +199,7 @@ MOVIES = [
             "Music Director": "Laxmikant-Pyarelal",
             "Writer": "Kamlesh Pandey",
         },
-    },
-    {
+{
         "title": "Chandni",
         "year": 1989,
         "era": "Vintage",
@@ -235,8 +210,7 @@ MOVIES = [
             "Music Director": "Shiv-Hari",
             "Writer": "Sagar Sarhadi",
         },
-    },
-    {
+{
         "title": "Parinda",
         "year": 1989,
         "era": "Vintage",
@@ -247,8 +221,7 @@ MOVIES = [
             "Music Director": "R. D. Burman",
             "Writer": "Shiv Kumar Subramaniam",
         },
-    },
-    {
+{
         "title": "Dil",
         "year": 1990,
         "era": "90s",
@@ -259,8 +232,7 @@ MOVIES = [
             "Music Director": "Anand-Milind",
             "Writer": "Rajeev Kaul",
         },
-    },
-    {
+{
         "title": "Saajan",
         "year": 1991,
         "era": "90s",
@@ -271,8 +243,7 @@ MOVIES = [
             "Music Director": "Nadeem-Shravan",
             "Writer": "Reema Rakesh Nath",
         },
-    },
-    {
+{
         "title": "Jo Jeeta Wohi Sikandar",
         "year": 1992,
         "era": "90s",
@@ -283,8 +254,7 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Nasir Hussain",
         },
-    },
-    {
+{
         "title": "Baazigar",
         "year": 1993,
         "era": "90s",
@@ -295,8 +265,7 @@ MOVIES = [
             "Music Director": "Anu Malik",
             "Writer": "Robin Bhatt",
         },
-    },
-    {
+{
         "title": "Hum Aapke Hain Koun..!",
         "year": 1994,
         "era": "90s",
@@ -307,8 +276,7 @@ MOVIES = [
             "Music Director": "Raamlaxman",
             "Writer": "Sooraj Barjatya",
         },
-    },
-    {
+{
         "title": "Dilwale Dulhania Le Jayenge",
         "year": 1995,
         "era": "90s",
@@ -319,8 +287,7 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Aditya Chopra",
         },
-    },
-    {
+{
         "title": "Rangeela",
         "year": 1995,
         "era": "90s",
@@ -331,8 +298,7 @@ MOVIES = [
             "Music Director": "A. R. Rahman",
             "Writer": "Neeraj Vora",
         },
-    },
-    {
+{
         "title": "Raja Hindustani",
         "year": 1996,
         "era": "90s",
@@ -343,8 +309,7 @@ MOVIES = [
             "Music Director": "Nadeem-Shravan",
             "Writer": "Robin Bhatt",
         },
-    },
-    {
+{
         "title": "Border",
         "year": 1997,
         "era": "90s",
@@ -355,20 +320,7 @@ MOVIES = [
             "Music Director": "Anu Malik",
             "Writer": "J. P. Dutta",
         },
-    },
-    {
-        "title": "Judwaa",
-        "year": 1997,
-        "era": "90s",
-        "roles": {
-            "Director": "David Dhawan",
-            "Lead Male": "Salman Khan",
-            "Lead Female": "Karisma Kapoor",
-            "Music Director": "Anu Malik",
-            "Writer": "Rumi Jaffery",
-        },
-    },
-    {
+{
         "title": "Gupt",
         "year": 1997,
         "era": "90s",
@@ -379,8 +331,18 @@ MOVIES = [
             "Music Director": "Viju Shah",
             "Writer": "Shabbir Boxwala",
         },
-    },
-    {
+{
+        "title": "Judwaa",
+        "year": 1997,
+        "era": "90s",
+        "roles": {
+            "Director": "David Dhawan",
+            "Lead Male": "Salman Khan",
+            "Lead Female": "Karisma Kapoor",
+            "Music Director": "Anu Malik",
+            "Writer": "Rumi Jaffery",
+        },
+{
         "title": "Dil Se..",
         "year": 1998,
         "era": "90s",
@@ -391,32 +353,7 @@ MOVIES = [
             "Music Director": "A. R. Rahman",
             "Writer": "Mani Ratnam",
         },
-    },
-    {
-        "title": "Kuch Kuch Hota Hai",
-        "year": 1998,
-        "era": "90s",
-        "roles": {
-            "Director": "Karan Johar",
-            "Lead Male": "Shah Rukh Khan",
-            "Lead Female": "Kajol",
-            "Music Director": "Jatin-Lalit",
-            "Writer": "Karan Johar",
-        },
-    },
-    {
-        "title": "Satya",
-        "year": 1998,
-        "era": "90s",
-        "roles": {
-            "Director": "Ram Gopal Varma",
-            "Lead Male": "J. D. Chakravarthy",
-            "Lead Female": "Urmila Matondkar",
-            "Music Director": "Vishal Bhardwaj",
-            "Writer": "Anurag Kashyap",
-        },
-    },
-    {
+{
         "title": "Ghulam",
         "year": 1998,
         "era": "90s",
@@ -427,8 +364,29 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Anjum Rajabali",
         },
-    },
-    {
+{
+        "title": "Kuch Kuch Hota Hai",
+        "year": 1998,
+        "era": "90s",
+        "roles": {
+            "Director": "Karan Johar",
+            "Lead Male": "Shah Rukh Khan",
+            "Lead Female": "Kajol",
+            "Music Director": "Jatin-Lalit",
+            "Writer": "Karan Johar",
+        },
+{
+        "title": "Satya",
+        "year": 1998,
+        "era": "90s",
+        "roles": {
+            "Director": "Ram Gopal Varma",
+            "Lead Male": "J. D. Chakravarthy",
+            "Lead Female": "Urmila Matondkar",
+            "Music Director": "Vishal Bhardwaj",
+            "Writer": "Anurag Kashyap",
+        },
+{
         "title": "Soldier",
         "year": 1998,
         "era": "90s",
@@ -439,8 +397,7 @@ MOVIES = [
             "Music Director": "Anu Malik",
             "Writer": "Sachin Bhowmick",
         },
-    },
-    {
+{
         "title": "Hum Dil De Chuke Sanam",
         "year": 1999,
         "era": "90s",
@@ -451,8 +408,7 @@ MOVIES = [
             "Music Director": "Ismail Darbar",
             "Writer": "Sanjay Leela Bhansali",
         },
-    },
-    {
+{
         "title": "Sarfarosh",
         "year": 1999,
         "era": "90s",
@@ -463,8 +419,7 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Hriday Lani",
         },
-    },
-    {
+{
         "title": "Vaastav",
         "year": 1999,
         "era": "90s",
@@ -475,20 +430,7 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Imtiaz Hussain",
         },
-    },
-    {
-        "title": "Kaho Naa... Pyaar Hai",
-        "year": 2000,
-        "era": "Millennium",
-        "roles": {
-            "Director": "Rakesh Roshan",
-            "Lead Male": "Hrithik Roshan",
-            "Lead Female": "Ameesha Patel",
-            "Music Director": "Rajesh Roshan",
-            "Writer": "Honey Irani",
-        },
-    },
-    {
+{
         "title": "Hera Pheri",
         "year": 2000,
         "era": "Millennium",
@@ -499,8 +441,18 @@ MOVIES = [
             "Music Director": "Anu Malik",
             "Writer": "Neeraj Vora",
         },
-    },
-    {
+{
+        "title": "Kaho Naa... Pyaar Hai",
+        "year": 2000,
+        "era": "Millennium",
+        "roles": {
+            "Director": "Rakesh Roshan",
+            "Lead Male": "Hrithik Roshan",
+            "Lead Female": "Ameesha Patel",
+            "Music Director": "Rajesh Roshan",
+            "Writer": "Honey Irani",
+        },
+{
         "title": "Dil Chahta Hai",
         "year": 2001,
         "era": "Millennium",
@@ -511,20 +463,7 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Farhan Akhtar",
         },
-    },
-    {
-        "title": "Lagaan",
-        "year": 2001,
-        "era": "Millennium",
-        "roles": {
-            "Director": "Ashutosh Gowariker",
-            "Lead Male": "Aamir Khan",
-            "Lead Female": "Gracy Singh",
-            "Music Director": "A. R. Rahman",
-            "Writer": "Kumar Dave",
-        },
-    },
-    {
+{
         "title": "Kabhi Khushi Kabhie Gham",
         "year": 2001,
         "era": "Millennium",
@@ -535,20 +474,18 @@ MOVIES = [
             "Music Director": "Jatin-Lalit",
             "Writer": "Karan Johar",
         },
-    },
-    {
-        "title": "Devdas",
-        "year": 2002,
+{
+        "title": "Lagaan",
+        "year": 2001,
         "era": "Millennium",
         "roles": {
-            "Director": "Sanjay Leela Bhansali",
-            "Lead Male": "Shah Rukh Khan",
-            "Lead Female": "Aishwarya Rai",
-            "Music Director": "Ismail Darbar",
-            "Writer": "Prakash Kapadia",
+            "Director": "Ashutosh Gowariker",
+            "Lead Male": "Aamir Khan",
+            "Lead Female": "Gracy Singh",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Kumar Dave",
         },
-    },
-    {
+{
         "title": "Company",
         "year": 2002,
         "era": "Millennium",
@@ -559,8 +496,7 @@ MOVIES = [
             "Music Director": "Sandeep Chowta",
             "Writer": "Jaideep Sahni",
         },
-    },
-    {
+{
         "title": "Kal Ho Naa Ho",
         "year": 2003,
         "era": "Millennium",
@@ -571,8 +507,7 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Karan Johar",
         },
-    },
-    {
+{
         "title": "Munna Bhai M.B.B.S.",
         "year": 2003,
         "era": "Millennium",
@@ -583,8 +518,7 @@ MOVIES = [
             "Music Director": "Anu Malik",
             "Writer": "Rajkumar Hirani",
         },
-    },
-    {
+{
         "title": "Swades",
         "year": 2004,
         "era": "Millennium",
@@ -595,8 +529,7 @@ MOVIES = [
             "Music Director": "A. R. Rahman",
             "Writer": "M. G. Sathya",
         },
-    },
-    {
+{
         "title": "Veer-Zaara",
         "year": 2004,
         "era": "Millennium",
@@ -607,8 +540,7 @@ MOVIES = [
             "Music Director": "Madan Mohan",
             "Writer": "Aditya Chopra",
         },
-    },
-    {
+{
         "title": "Black",
         "year": 2005,
         "era": "Millennium",
@@ -619,20 +551,7 @@ MOVIES = [
             "Music Director": "Monty Sharma",
             "Writer": "Sanjay Leela Bhansali",
         },
-    },
-    {
-        "title": "Rang De Basanti",
-        "year": 2006,
-        "era": "Millennium",
-        "roles": {
-            "Director": "Rakeysh Omprakash Mehra",
-            "Lead Male": "Aamir Khan",
-            "Lead Female": "Soha Ali Khan",
-            "Music Director": "A. R. Rahman",
-            "Writer": "Rensil D'Silva",
-        },
-    },
-    {
+{
         "title": "Lage Raho Munna Bhai",
         "year": 2006,
         "era": "Millennium",
@@ -643,20 +562,18 @@ MOVIES = [
             "Music Director": "Shantanu Moitra",
             "Writer": "Rajkumar Hirani",
         },
-    },
-    {
-        "title": "Taare Zameen Par",
-        "year": 2007,
+{
+        "title": "Rang De Basanti",
+        "year": 2006,
         "era": "Millennium",
         "roles": {
-            "Director": "Aamir Khan",
-            "Lead Male": "Darsheel Safary",
-            "Lead Female": "Tisca Chopra",
-            "Music Director": "Shankar-Ehsaan-Loy",
-            "Writer": "Amole Gupte",
+            "Director": "Rakeysh Omprakash Mehra",
+            "Lead Male": "Aamir Khan",
+            "Lead Female": "Soha Ali Khan",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Rensil D'Silva",
         },
-    },
-    {
+{
         "title": "Jab We Met",
         "year": 2007,
         "era": "Millennium",
@@ -667,8 +584,18 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Imtiaz Ali",
         },
-    },
-    {
+{
+        "title": "Taare Zameen Par",
+        "year": 2007,
+        "era": "Millennium",
+        "roles": {
+            "Director": "Aamir Khan",
+            "Lead Male": "Darsheel Safary",
+            "Lead Female": "Tisca Chopra",
+            "Music Director": "Shankar-Ehsaan-Loy",
+            "Writer": "Amole Gupte",
+        },
+{
         "title": "Ghajini",
         "year": 2008,
         "era": "Millennium",
@@ -679,8 +606,7 @@ MOVIES = [
             "Music Director": "A. R. Rahman",
             "Writer": "A. R. Murugadoss",
         },
-    },
-    {
+{
         "title": "Rab Ne Bana Di Jodi",
         "year": 2008,
         "era": "Millennium",
@@ -691,8 +617,7 @@ MOVIES = [
             "Music Director": "Salim-Sulaiman",
             "Writer": "Aditya Chopra",
         },
-    },
-    {
+{
         "title": "3 Idiots",
         "year": 2009,
         "era": "Millennium",
@@ -703,8 +628,7 @@ MOVIES = [
             "Music Director": "Shantanu Moitra",
             "Writer": "Rajkumar Hirani",
         },
-    },
-    {
+{
         "title": "Kaminey",
         "year": 2009,
         "era": "Millennium",
@@ -715,8 +639,7 @@ MOVIES = [
             "Music Director": "Vishal Bhardwaj",
             "Writer": "Vishal Bhardwaj",
         },
-    },
-    {
+{
         "title": "Dabangg",
         "year": 2010,
         "era": "Modern",
@@ -727,8 +650,7 @@ MOVIES = [
             "Music Director": "Sajid-Wajid",
             "Writer": "Dilip Shukla",
         },
-    },
-    {
+{
         "title": "My Name Is Khan",
         "year": 2010,
         "era": "Modern",
@@ -739,8 +661,7 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Shibani Bathija",
         },
-    },
-    {
+{
         "title": "Zindagi Na Milegi Dobara",
         "year": 2011,
         "era": "Modern",
@@ -751,20 +672,7 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Zoya Akhtar",
         },
-    },
-    {
-        "title": "Kahaani",
-        "year": 2012,
-        "era": "Modern",
-        "roles": {
-            "Director": "Sujoy Ghosh",
-            "Lead Male": "Parambrata Chattopadhyay",
-            "Lead Female": "Vidya Balan",
-            "Music Director": "Vishal-Shekhar",
-            "Writer": "Sujoy Ghosh",
-        },
-    },
-    {
+{
         "title": "Barfi!",
         "year": 2012,
         "era": "Modern",
@@ -775,20 +683,18 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Anurag Basu",
         },
-    },
-    {
-        "title": "Queen",
-        "year": 2013,
+{
+        "title": "Kahaani",
+        "year": 2012,
         "era": "Modern",
         "roles": {
-            "Director": "Vikas Bahl",
-            "Lead Male": "Rajkummar Rao",
-            "Lead Female": "Kangana Ranaut",
-            "Music Director": "Amit Trivedi",
-            "Writer": "Vikas Bahl",
+            "Director": "Sujoy Ghosh",
+            "Lead Male": "Parambrata Chattopadhyay",
+            "Lead Female": "Vidya Balan",
+            "Music Director": "Vishal-Shekhar",
+            "Writer": "Sujoy Ghosh",
         },
-    },
-    {
+{
         "title": "Bhaag Milkha Bhaag",
         "year": 2013,
         "era": "Modern",
@@ -799,20 +705,18 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Prasoon Joshi",
         },
-    },
-    {
-        "title": "PK",
-        "year": 2014,
+{
+        "title": "Queen",
+        "year": 2013,
         "era": "Modern",
         "roles": {
-            "Director": "Rajkumar Hirani",
-            "Lead Male": "Aamir Khan",
-            "Lead Female": "Anushka Sharma",
-            "Music Director": "Shantanu Moitra",
-            "Writer": "Rajkumar Hirani",
+            "Director": "Vikas Bahl",
+            "Lead Male": "Rajkummar Rao",
+            "Lead Female": "Kangana Ranaut",
+            "Music Director": "Amit Trivedi",
+            "Writer": "Vikas Bahl",
         },
-    },
-    {
+{
         "title": "Haider",
         "year": 2014,
         "era": "Modern",
@@ -823,8 +727,18 @@ MOVIES = [
             "Music Director": "Vishal Bhardwaj",
             "Writer": "Vishal Bhardwaj",
         },
-    },
-    {
+{
+        "title": "PK",
+        "year": 2014,
+        "era": "Modern",
+        "roles": {
+            "Director": "Rajkumar Hirani",
+            "Lead Male": "Aamir Khan",
+            "Lead Female": "Anushka Sharma",
+            "Music Director": "Shantanu Moitra",
+            "Writer": "Rajkumar Hirani",
+        },
+{
         "title": "Bajrangi Bhaijaan",
         "year": 2015,
         "era": "Modern",
@@ -835,8 +749,7 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "K. V. Vijayendra Prasad",
         },
-    },
-    {
+{
         "title": "Piku",
         "year": 2015,
         "era": "Modern",
@@ -847,8 +760,7 @@ MOVIES = [
             "Music Director": "Anupam Roy",
             "Writer": "Juhi Chaturvedi",
         },
-    },
-    {
+{
         "title": "Dangal",
         "year": 2016,
         "era": "Modern",
@@ -859,8 +771,7 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Nitesh Tiwari",
         },
-    },
-    {
+{
         "title": "Pink",
         "year": 2016,
         "era": "Modern",
@@ -871,8 +782,7 @@ MOVIES = [
             "Music Director": "Shantanu Moitra",
             "Writer": "Ritesh Shah",
         },
-    },
-    {
+{
         "title": "Hindi Medium",
         "year": 2017,
         "era": "Modern",
@@ -883,8 +793,7 @@ MOVIES = [
             "Music Director": "Sachin-Jigar",
             "Writer": "Zeenat Lakhani",
         },
-    },
-    {
+{
         "title": "Andhadhun",
         "year": 2018,
         "era": "Modern",
@@ -895,8 +804,7 @@ MOVIES = [
             "Music Director": "Amit Trivedi",
             "Writer": "Sriram Raghavan",
         },
-    },
-    {
+{
         "title": "Raazi",
         "year": 2018,
         "era": "Modern",
@@ -907,20 +815,7 @@ MOVIES = [
             "Music Director": "Shankar-Ehsaan-Loy",
             "Writer": "Bhavani Iyer",
         },
-    },
-    {
-        "title": "Gully Boy",
-        "year": 2019,
-        "era": "Modern",
-        "roles": {
-            "Director": "Zoya Akhtar",
-            "Lead Male": "Ranveer Singh",
-            "Lead Female": "Alia Bhatt",
-            "Music Director": "Dub Sharma",
-            "Writer": "Zoya Akhtar",
-        },
-    },
-    {
+{
         "title": "Article 15",
         "year": 2019,
         "era": "Modern",
@@ -931,8 +826,18 @@ MOVIES = [
             "Music Director": "Anurag Saikia",
             "Writer": "Gaurav Solanki",
         },
-    },
-    {
+{
+        "title": "Gully Boy",
+        "year": 2019,
+        "era": "Modern",
+        "roles": {
+            "Director": "Zoya Akhtar",
+            "Lead Male": "Ranveer Singh",
+            "Lead Female": "Alia Bhatt",
+            "Music Director": "Dub Sharma",
+            "Writer": "Zoya Akhtar",
+        },
+{
         "title": "Tanhaji",
         "year": 2020,
         "era": "Modern",
@@ -943,8 +848,7 @@ MOVIES = [
             "Music Director": "Ajay-Atul",
             "Writer": "Prakash Kapadia",
         },
-    },
-    {
+{
         "title": "Thappad",
         "year": 2020,
         "era": "Modern",
@@ -955,20 +859,7 @@ MOVIES = [
             "Music Director": "Anurag Saikia",
             "Writer": "Mrunmayee Lagoo",
         },
-    },
-    {
-        "title": "Shershaah",
-        "year": 2021,
-        "era": "2021-2026",
-        "roles": {
-            "Director": "Vishnuvardhan",
-            "Lead Male": "Sidharth Malhotra",
-            "Lead Female": "Kiara Advani",
-            "Music Director": "Tanishk Bagchi",
-            "Writer": "Sandeep Shrivastava",
-        },
-    },
-    {
+{
         "title": "Sardar Udham",
         "year": 2021,
         "era": "2021-2026",
@@ -979,8 +870,18 @@ MOVIES = [
             "Music Director": "Shantanu Moitra",
             "Writer": "Shubhendu Bhattacharya",
         },
-    },
-    {
+{
+        "title": "Shershaah",
+        "year": 2021,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Vishnuvardhan",
+            "Lead Male": "Sidharth Malhotra",
+            "Lead Female": "Kiara Advani",
+            "Music Director": "Tanishk Bagchi",
+            "Writer": "Sandeep Shrivastava",
+        },
+{
         "title": "Sooryavanshi",
         "year": 2021,
         "era": "2021-2026",
@@ -991,20 +892,7 @@ MOVIES = [
             "Music Director": "Tanishk Bagchi",
             "Writer": "Farhad Samji",
         },
-    },
-    {
-        "title": "Gangubai Kathiawadi",
-        "year": 2022,
-        "era": "2021-2026",
-        "roles": {
-            "Director": "Sanjay Leela Bhansali",
-            "Lead Male": "Shantanu Maheshwari",
-            "Lead Female": "Alia Bhatt",
-            "Music Director": "Sanjay Leela Bhansali",
-            "Writer": "Utkarshini Vashishtha",
-        },
-    },
-    {
+{
         "title": "Bhool Bhulaiyaa 2",
         "year": 2022,
         "era": "2021-2026",
@@ -1015,32 +903,7 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Aakash Kaushik",
         },
-    },
-    {
-        "title": "RRR",
-        "year": 2022,
-        "era": "2021-2026",
-        "roles": {
-            "Director": "S. S. Rajamouli",
-            "Lead Male": "Ram Charan",
-            "Lead Female": "Alia Bhatt",
-            "Music Director": "M. M. Keeravani",
-            "Writer": "K. V. Vijayendra Prasad",
-        },
-    },
-    {
-        "title": "Drishyam 2",
-        "year": 2022,
-        "era": "2021-2026",
-        "roles": {
-            "Director": "Abhishek Pathak",
-            "Lead Male": "Ajay Devgn",
-            "Lead Female": "Shriya Saran",
-            "Music Director": "Devi Sri Prasad",
-            "Writer": "Aamil Keeyan Khan",
-        },
-    },
-    {
+{
         "title": "Brahmastra Part One: Shiva",
         "year": 2022,
         "era": "2021-2026",
@@ -1051,32 +914,40 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Ayan Mukerji",
         },
-    },
-    {
-        "title": "Pathaan",
-        "year": 2023,
+{
+        "title": "Drishyam 2",
+        "year": 2022,
         "era": "2021-2026",
         "roles": {
-            "Director": "Siddharth Anand",
-            "Lead Male": "Shah Rukh Khan",
-            "Lead Female": "Deepika Padukone",
-            "Music Director": "Vishal-Shekhar",
-            "Writer": "Shridhar Raghavan",
+            "Director": "Abhishek Pathak",
+            "Lead Male": "Ajay Devgn",
+            "Lead Female": "Shriya Saran",
+            "Music Director": "Devi Sri Prasad",
+            "Writer": "Aamil Keeyan Khan",
         },
-    },
-    {
-        "title": "Jawan",
-        "year": 2023,
+{
+        "title": "Gangubai Kathiawadi",
+        "year": 2022,
         "era": "2021-2026",
         "roles": {
-            "Director": "Atlee",
-            "Lead Male": "Shah Rukh Khan",
-            "Lead Female": "Nayanthara",
-            "Music Director": "Anirudh Ravichander",
-            "Writer": "Atlee",
+            "Director": "Sanjay Leela Bhansali",
+            "Lead Male": "Shantanu Maheshwari",
+            "Lead Female": "Alia Bhatt",
+            "Music Director": "Sanjay Leela Bhansali",
+            "Writer": "Utkarshini Vashishtha",
         },
-    },
-    {
+{
+        "title": "RRR",
+        "year": 2022,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "S. S. Rajamouli",
+            "Lead Male": "Ram Charan",
+            "Lead Female": "Alia Bhatt",
+            "Music Director": "M. M. Keeravani",
+            "Writer": "K. V. Vijayendra Prasad",
+        },
+{
         "title": "12th Fail",
         "year": 2023,
         "era": "2021-2026",
@@ -1087,8 +958,7 @@ MOVIES = [
             "Music Director": "Shantanu Moitra",
             "Writer": "Vidhu Vinod Chopra",
         },
-    },
-    {
+{
         "title": "Animal",
         "year": 2023,
         "era": "2021-2026",
@@ -1099,8 +969,7 @@ MOVIES = [
             "Music Director": "Harshavardhan Rameshwar",
             "Writer": "Sandeep Reddy Vanga",
         },
-    },
-    {
+{
         "title": "Dunki",
         "year": 2023,
         "era": "2021-2026",
@@ -1111,42 +980,38 @@ MOVIES = [
             "Music Director": "Pritam",
             "Writer": "Abhijat Joshi",
         },
-    },
-    {
-"title": "Laapataa Ladies",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Kiran Rao",
-"Lead Male": "Sparsh Shrivastava",
-"Lead Female": "Nitanshi Goel",
-"Music Director": "Ram Sampath",
-"Writer": "Biplab Goswami",
-},
-},
 {
-"title": "Kill",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Nikhil Nagesh Bhat",
-"Lead Male": "Lakshya",
-"Lead Female": "Tanya Maniktala",
-"Music Director": "Haroon-Gavin",
-"Writer": "Nikhil Nagesh Bhat",
-},
-},
+        "title": "Jawan",
+        "year": 2023,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Atlee",
+            "Lead Male": "Shah Rukh Khan",
+            "Lead Female": "Nayanthara",
+            "Music Director": "Anirudh Ravichander",
+            "Writer": "Atlee",
+        },
 {
-"title": "Crew",
+        "title": "Pathaan",
+        "year": 2023,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Siddharth Anand",
+            "Lead Male": "Shah Rukh Khan",
+            "Lead Female": "Deepika Padukone",
+            "Music Director": "Vishal-Shekhar",
+            "Writer": "Shridhar Raghavan",
+        },
+{
+"title": "Aavesham",
 "year": 2024,
 "era": "Modern",
 "roles": {
-"Director": "Rajesh Krishnan",
-"Lead Male": "Diljit Dosanjh",
-"Lead Female": "Kareena Kapoor Khan",
-"Music Director": "Badshah",
-"Writer": "Nidhi Mehra",
-},
+"Director": "Jithu Madhavan",
+"Lead Male": "Fahadh Faasil",
+"Lead Female": "Hipzster",
+"Music Director": "Sushin Shyam",
+"Writer": "Jithu Madhavan",
 },
 {
 "title": "Article 370",
@@ -1159,30 +1024,16 @@ MOVIES = [
 "Music Director": "Shashwat Sachdev",
 "Writer": "Aditya Dhar",
 },
-},
 {
-"title": "Munjya",
+"title": "Bhool Bhulaiyaa 3",
 "year": 2024,
 "era": "Modern",
 "roles": {
-"Director": "Aditya Sarpotdar",
-"Lead Male": "Abhay Verma",
-"Lead Female": "Sharvari",
-"Music Director": "Sachin-Jigar",
-"Writer": "Niren Bhatt",
-},
-},
-{
-"title": "Srikanth",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Tushar Hiranandani",
-"Lead Male": "Rajkummar Rao",
-"Lead Female": "Alaya F",
-"Music Director": "Anand-Milind",
-"Writer": "Jagdeep Sidhu",
-},
+"Director": "Anees Bazmee",
+"Lead Male": "Kartik Aaryan",
+"Lead Female": "Triptii Dimri",
+"Music Director": "Pritam",
+"Writer": "Aakash Kaushik",
 },
 {
 "title": "Chandu Champion",
@@ -1195,126 +1046,16 @@ MOVIES = [
 "Music Director": "Pritam",
 "Writer": "Kabir Khan",
 },
-},
 {
-"title": "Stree 2",
+"title": "Crew",
 "year": 2024,
 "era": "Modern",
 "roles": {
-"Director": "Amar Kaushik",
-"Lead Male": "Rajkummar Rao",
-"Lead Female": "Shraddha Kapoor",
-"Music Director": "Sachin-Jigar",
-"Writer": "Niren Bhatt",
-},
-},
-{
-"title": "Bhool Bhulaiyaa 3",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Anees Bazmee",
-"Lead Male": "Kartik Aaryan",
-"Lead Female": "Triptii Dimri",
-"Music Director": "Pritam",
-"Writer": "Aakash Kaushik",
-},
-},
-{
-"title": "Singham Again",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Rohit Shetty",
-"Lead Male": "Ajay Devgn",
+"Director": "Rajesh Krishnan",
+"Lead Male": "Diljit Dosanjh",
 "Lead Female": "Kareena Kapoor Khan",
-"Music Director": "Ravi Basrur",
-"Writer": "Rohit Shetty",
-},
-},
-{
-"title": "Kalki 2898 AD",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Nag Ashwin",
-"Lead Male": "Prabhas",
-"Lead Female": "Deepika Padukone",
-"Music Director": "Santhosh Narayanan",
-"Writer": "Nag Ashwin",
-},
-},
-{
-"title": "Maharaja",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Nithilan Saminathan",
-"Lead Male": "Vijay Sethupathi",
-"Lead Female": "Mamta Mohandas",
-"Music Director": "B. Ajaneesh Loknath",
-"Writer": "Nithilan Saminathan",
-},
-},
-{
-"title": "Aavesham",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Jithu Madhavan",
-"Lead Male": "Fahadh Faasil",
-"Lead Female": "Hipzster",
-"Music Director": "Sushin Shyam",
-"Writer": "Jithu Madhavan",
-},
-},
-{
-"title": "Manjummel Boys",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Chidambaram",
-"Lead Male": "Soubin Shahir",
-"Lead Female": "None",
-"Music Director": "Sushin Shyam",
-"Writer": "Chidambaram",
-},
-},
-{
-"title": "Premalu",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Girish A. D.",
-"Lead Male": "Naslen",
-"Lead Female": "Mamitha Baiju",
-"Music Director": "Vishnu Vijay",
-"Writer": "Girish A. D.",
-},
-},
-{
-"title": "Lucky Baskhar",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Venky Atluri",
-"Lead Male": "Dulquer Salmaan",
-"Lead Female": "Meenakshi Chaudhary",
-"Music Director": "G. V. Prakash Kumar",
-"Writer": "Venky Atluri",
-},
-},
-{
-"title": "Pushpa 2: The Rule",
-"year": 2024,
-"era": "Modern",
-"roles": {
-"Director": "Sukumar",
-"Lead Male": "Allu Arjun",
-"Lead Female": "Rashmika Mandanna",
-"Music Director": "Devi Sri Prasad",
-"Writer": "Sukumar",
-},
+"Music Director": "Badshah",
+"Writer": "Nidhi Mehra",
 },
 {
 "title": "Devara Part 1",
@@ -1327,6 +1068,137 @@ MOVIES = [
 "Music Director": "Anirudh Ravichander",
 "Writer": "Koratala Siva",
 },
+{
+"title": "Kalki 2898 AD",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Nag Ashwin",
+"Lead Male": "Prabhas",
+"Lead Female": "Deepika Padukone",
+"Music Director": "Santhosh Narayanan",
+"Writer": "Nag Ashwin",
+},
+{
+"title": "Kill",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Nikhil Nagesh Bhat",
+"Lead Male": "Lakshya",
+"Lead Female": "Tanya Maniktala",
+"Music Director": "Haroon-Gavin",
+"Writer": "Nikhil Nagesh Bhat",
+},
+{
+"title": "Laapataa Ladies",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Kiran Rao",
+"Lead Male": "Sparsh Shrivastava",
+"Lead Female": "Nitanshi Goel",
+"Music Director": "Ram Sampath",
+"Writer": "Biplab Goswami",
+},
+{
+"title": "Lucky Baskhar",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Venky Atluri",
+"Lead Male": "Dulquer Salmaan",
+"Lead Female": "Meenakshi Chaudhary",
+"Music Director": "G. V. Prakash Kumar",
+"Writer": "Venky Atluri",
+},
+{
+"title": "Maharaja",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Nithilan Saminathan",
+"Lead Male": "Vijay Sethupathi",
+"Lead Female": "Mamta Mohandas",
+"Music Director": "B. Ajaneesh Loknath",
+"Writer": "Nithilan Saminathan",
+},
+{
+"title": "Manjummel Boys",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Chidambaram",
+"Lead Male": "Soubin Shahir",
+"Lead Female": "None",
+"Music Director": "Sushin Shyam",
+"Writer": "Chidambaram",
+},
+{
+"title": "Munjya",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Aditya Sarpotdar",
+"Lead Male": "Abhay Verma",
+"Lead Female": "Sharvari",
+"Music Director": "Sachin-Jigar",
+"Writer": "Niren Bhatt",
+},
+{
+"title": "Premalu",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Girish A. D.",
+"Lead Male": "Naslen",
+"Lead Female": "Mamitha Baiju",
+"Music Director": "Vishnu Vijay",
+"Writer": "Girish A. D.",
+},
+{
+"title": "Pushpa 2: The Rule",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Sukumar",
+"Lead Male": "Allu Arjun",
+"Lead Female": "Rashmika Mandanna",
+"Music Director": "Devi Sri Prasad",
+"Writer": "Sukumar",
+},
+{
+"title": "Singham Again",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Rohit Shetty",
+"Lead Male": "Ajay Devgn",
+"Lead Female": "Kareena Kapoor Khan",
+"Music Director": "Ravi Basrur",
+"Writer": "Rohit Shetty",
+},
+{
+"title": "Srikanth",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Tushar Hiranandani",
+"Lead Male": "Rajkummar Rao",
+"Lead Female": "Alaya F",
+"Music Director": "Anand-Milind",
+"Writer": "Jagdeep Sidhu",
+},
+{
+"title": "Stree 2",
+"year": 2024,
+"era": "Modern",
+"roles": {
+"Director": "Amar Kaushik",
+"Lead Male": "Rajkummar Rao",
+"Lead Female": "Shraddha Kapoor",
+"Music Director": "Sachin-Jigar",
+"Writer": "Niren Bhatt",
 },
 {
 "title": "Chhaava",
@@ -1339,115 +1211,6 @@ MOVIES = [
 "Music Director": "A. R. Rahman",
 "Writer": "Rishi Virmani",
 },
-},
-{
-"title": "Sky Force",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Abhishek Kapur",
-"Lead Male": "Akshay Kumar",
-"Lead Female": "Nimrat Kaur",
-"Music Director": "Tanishk Bagchi",
-"Writer": "Sandeep Kewlani",
-},
-},
-{
-"title": "The Diplomat",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Shivam Nair",
-"Lead Male": "John Abraham",
-"Lead Female": "Sadia Khateeb",
-"Music Director": "Manan Bhardwaj",
-"Writer": "Ritesh Shah",
-},
-},
-{
-"title": "Jaat",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Gopichand Malineni",
-"Lead Male": "Sunny Deol",
-"Lead Female": "Saiyami Kher",
-"Music Director": "Thaman S",
-"Writer": "Gopichand Malineni",
-},
-},
-{
-"title": "Kesari Chapter 2",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Karan Singh Tyagi",
-"Lead Male": "Akshay Kumar",
-"Lead Female": "Ananya Panday",
-"Music Director": "Shashwat Sachdev",
-"Writer": "Amritpal Singh Bindra",
-},
-},
-{
-"title": "Raid 2",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Raj Kumar Gupta",
-"Lead Male": "Ajay Devgn",
-"Lead Female": "Vaani Kapoor",
-"Music Director": "Amit Trivedi",
-"Writer": "Ritesh Shah",
-},
-},
-{
-"title": "Sitaare Zameen Par",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "R. S. Prasanna",
-"Lead Male": "Aamir Khan",
-"Lead Female": "Genelia D'Souza",
-"Music Director": "Shankar-Ehsaan-Loy",
-"Writer": "Divy Nidhi Sharma",
-},
-},
-{
-"title": "Housefull 5",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Tarun Mansukhani",
-"Lead Male": "Akshay Kumar",
-"Lead Female": "Jacqueline Fernandez",
-"Music Director": "Yo Yo Honey Singh",
-"Writer": "Sajid Nadiadwala",
-},
-},
-{
-"title": "War 2",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Ayan Mukerji",
-"Lead Male": "Hrithik Roshan",
-"Lead Female": "Kiara Advani",
-"Music Director": "Pritam",
-"Writer": "Aditya Chopra",
-},
-},
-{
-"title": "Param Sundari",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Tushar Jalota",
-"Lead Male": "Sidharth Malhotra",
-"Lead Female": "Janhvi Kapoor",
-"Music Director": "Sachin-Jigar",
-"Writer": "Aarsh Vora",
-},
-},
 {
 "title": "De De Pyaar De 2",
 "year": 2025,
@@ -1458,19 +1221,6 @@ MOVIES = [
 "Lead Female": "Rakul Preet Singh",
 "Music Director": "Tanishk Bagchi",
 "Writer": "Luv Ranjan",
-},
-},
-{
-"title": "Kantara: Chapter 1",
-"year": 2025,
-"era": "Modern",
-"roles": {
-"Director": "Rishab Shetty",
-"Lead Male": "Rishab Shetty",
-"Lead Female": "Sapthami Gowda",
-"Music Director": "B. Ajaneesh Loknath",
-"Writer": "Rishab Shetty",
-},
 },
 {
 "title": "Dragon",
@@ -1483,6 +1233,93 @@ MOVIES = [
 "Music Director": "Leon James",
 "Writer": "Ashwath Marimuthu",
 },
+{
+"title": "Housefull 5",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Tarun Mansukhani",
+"Lead Male": "Akshay Kumar",
+"Lead Female": "Jacqueline Fernandez",
+"Music Director": "Yo Yo Honey Singh",
+"Writer": "Sajid Nadiadwala",
+},
+{
+"title": "Jaat",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Gopichand Malineni",
+"Lead Male": "Sunny Deol",
+"Lead Female": "Saiyami Kher",
+"Music Director": "Thaman S",
+"Writer": "Gopichand Malineni",
+},
+{
+"title": "Kantara: Chapter 1",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Rishab Shetty",
+"Lead Male": "Rishab Shetty",
+"Lead Female": "Sapthami Gowda",
+"Music Director": "B. Ajaneesh Loknath",
+"Writer": "Rishab Shetty",
+},
+{
+"title": "Kesari Chapter 2",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Karan Singh Tyagi",
+"Lead Male": "Akshay Kumar",
+"Lead Female": "Ananya Panday",
+"Music Director": "Shashwat Sachdev",
+"Writer": "Amritpal Singh Bindra",
+},
+{
+"title": "Param Sundari",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Tushar Jalota",
+"Lead Male": "Sidharth Malhotra",
+"Lead Female": "Janhvi Kapoor",
+"Music Director": "Sachin-Jigar",
+"Writer": "Aarsh Vora",
+},
+{
+"title": "Raid 2",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Raj Kumar Gupta",
+"Lead Male": "Ajay Devgn",
+"Lead Female": "Vaani Kapoor",
+"Music Director": "Amit Trivedi",
+"Writer": "Ritesh Shah",
+},
+{
+"title": "Sitaare Zameen Par",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "R. S. Prasanna",
+"Lead Male": "Aamir Khan",
+"Lead Female": "Genelia D'Souza",
+"Music Director": "Shankar-Ehsaan-Loy",
+"Writer": "Divy Nidhi Sharma",
+},
+{
+"title": "Sky Force",
+"year": 2025,
+"era": "Modern",
+"roles": {
+"Director": "Abhishek Kapur",
+"Lead Male": "Akshay Kumar",
+"Lead Female": "Nimrat Kaur",
+"Music Director": "Tanishk Bagchi",
+"Writer": "Sandeep Kewlani",
 },
 {
 "title": "Superboys of Malegaon",
@@ -1495,102 +1332,27 @@ MOVIES = [
 "Music Director": "Sachin-Jigar",
 "Writer": "Varun Grover",
 },
-},
 {
-"title": "King",
-"year": 2026,
+"title": "The Diplomat",
+"year": 2025,
 "era": "Modern",
 "roles": {
-"Director": "Siddharth Anand",
-"Lead Male": "Shah Rukh Khan",
-"Lead Female": "Suhana Khan",
-"Music Director": "Anirudh Ravichander",
-"Writer": "Siddharth Anand",
-},
-},
-{
-"title": "Ramayana",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Nitesh Tiwari",
-"Lead Male": "Ranbir Kapoor",
-"Lead Female": "Sai Pallavi",
-"Music Director": "A. R. Rahman",
-"Writer": "Nitesh Tiwari",
-},
+"Director": "Shivam Nair",
+"Lead Male": "John Abraham",
+"Lead Female": "Sadia Khateeb",
+"Music Director": "Manan Bhardwaj",
+"Writer": "Ritesh Shah",
 },
 {
-"title": "Border 2",
-"year": 2026,
+"title": "War 2",
+"year": 2025,
 "era": "Modern",
 "roles": {
-"Director": "Anurag Singh",
-"Lead Male": "Sunny Deol",
-"Lead Female": "Medha Rana",
-"Music Director": "Anu Malik",
-"Writer": "Nidhi Dutta",
-},
-},
-{
-"title": "Drishyam 3",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Abhishek Pathak",
-"Lead Male": "Ajay Devgn",
-"Lead Female": "Shriya Saran",
-"Music Director": "Devi Sri Prasad",
-"Writer": "Aamil Keeyan Khan",
-},
-},
-{
-"title": "Mardaani 3",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Abhiraj Minawala",
-"Lead Male": "None",
-"Lead Female": "Rani Mukerji",
-"Music Director": "Julius Packiam",
-"Writer": "Aayush Gupta",
-},
-},
-{
-"title": "Bhediya 2",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Amar Kaushik",
-"Lead Male": "Varun Dhawan",
-"Lead Female": "Kriti Sanon",
-"Music Director": "Sachin-Jigar",
-"Writer": "Niren Bhatt",
-},
-},
-{
-"title": "Dhamaal 4",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Indra Kumar",
-"Lead Male": "Ajay Devgn",
-"Lead Female": "Madhuri Dixit",
-"Music Director": "Meet Bros",
-"Writer": "Farhad Samji",
-},
-},
-{
-"title": "Bhooth Bangla",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Priyadarshan",
-"Lead Male": "Akshay Kumar",
-"Lead Female": "Tabu",
+"Director": "Ayan Mukerji",
+"Lead Male": "Hrithik Roshan",
+"Lead Female": "Kiara Advani",
 "Music Director": "Pritam",
-"Writer": "Priyadarshan",
-},
+"Writer": "Aditya Chopra",
 },
 {
 "title": "Awarapan 2",
@@ -1603,19 +1365,6 @@ MOVIES = [
 "Music Director": "Mithoon",
 "Writer": "Bilal Siddiqi",
 },
-},
-{
-"title": "Toxic",
-"year": 2026,
-"era": "Modern",
-"roles": {
-"Director": "Geethu Mohandas",
-"Lead Male": "Yash",
-"Lead Female": "Kiara Advani",
-"Music Director": "Charan Raj",
-"Writer": "Geethu Mohandas",
-},
-},
 {
 "title": "Bandar",
 "year": 2026,
@@ -1627,18 +1376,38 @@ MOVIES = [
 "Music Director": "Amit Trivedi",
 "Writer": "Anurag Kashyap",
 },
-},
 {
-"title": "Ikkis",
+"title": "Bhediya 2",
 "year": 2026,
 "era": "Modern",
 "roles": {
-"Director": "Sriram Raghavan",
-"Lead Male": "Agastya Nanda",
-"Lead Female": "None",
-"Music Director": "Amit Trivedi",
-"Writer": "Sriram Raghavan",
+"Director": "Amar Kaushik",
+"Lead Male": "Varun Dhawan",
+"Lead Female": "Kriti Sanon",
+"Music Director": "Sachin-Jigar",
+"Writer": "Niren Bhatt",
 },
+{
+"title": "Bhooth Bangla",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Priyadarshan",
+"Lead Male": "Akshay Kumar",
+"Lead Female": "Tabu",
+"Music Director": "Pritam",
+"Writer": "Priyadarshan",
+},
+{
+"title": "Border 2",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Anurag Singh",
+"Lead Male": "Sunny Deol",
+"Lead Female": "Medha Rana",
+"Music Director": "Anu Malik",
+"Writer": "Nidhi Dutta",
 },
 {
 "title": "Chand Mera Dil",
@@ -1651,4 +1420,81 @@ MOVIES = [
 "Music Director": "Tanishk Bagchi",
 "Writer": "Vivek Soni",
 },
+{
+"title": "Dhamaal 4",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Indra Kumar",
+"Lead Male": "Ajay Devgn",
+"Lead Female": "Madhuri Dixit",
+"Music Director": "Meet Bros",
+"Writer": "Farhad Samji",
 },
+{
+"title": "Drishyam 3",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Abhishek Pathak",
+"Lead Male": "Ajay Devgn",
+"Lead Female": "Shriya Saran",
+"Music Director": "Devi Sri Prasad",
+"Writer": "Aamil Keeyan Khan",
+},
+{
+"title": "Ikkis",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Sriram Raghavan",
+"Lead Male": "Agastya Nanda",
+"Lead Female": "None",
+"Music Director": "Amit Trivedi",
+"Writer": "Sriram Raghavan",
+},
+{
+"title": "King",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Siddharth Anand",
+"Lead Male": "Shah Rukh Khan",
+"Lead Female": "Suhana Khan",
+"Music Director": "Anirudh Ravichander",
+"Writer": "Siddharth Anand",
+},
+{
+"title": "Mardaani 3",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Abhiraj Minawala",
+"Lead Male": "None",
+"Lead Female": "Rani Mukerji",
+"Music Director": "Julius Packiam",
+"Writer": "Aayush Gupta",
+},
+{
+"title": "Ramayana",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Nitesh Tiwari",
+"Lead Male": "Ranbir Kapoor",
+"Lead Female": "Sai Pallavi",
+"Music Director": "A. R. Rahman",
+"Writer": "Nitesh Tiwari",
+},
+{
+"title": "Toxic",
+"year": 2026,
+"era": "Modern",
+"roles": {
+"Director": "Geethu Mohandas",
+"Lead Male": "Yash",
+"Lead Female": "Kiara Advani",
+"Music Director": "Charan Raj",
+"Writer": "Geethu Mohandas",
+},
+]
