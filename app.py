@@ -1,4 +1,5 @@
 from __future__ import annotations
+import random
 import streamlit as st
 from movies_data import MOVIES
 
@@ -41,6 +42,13 @@ div[data-testid="stMetric"] {
     border-radius: 12px;
     padding: 1rem;
     background: rgba(10, 0, 2, 0.62);
+    margin-bottom: 1rem;
+}
+.movie-title {
+    font-size: 2.2rem;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 0.1rem;
 }
 </style>
 """
@@ -60,13 +68,7 @@ PREMIUM_TIER = {
 }
 
 GLOBAL_DRAWS = {"Shah Rukh Khan", "Aamir Khan", "Prabhas", "Salman Khan"}
-
-# Automatically extract unique names from your dataset
 ROLES = ["Director", "Lead Male", "Lead Female", "Music Director", "Writer"]
-ROLE_OPTIONS = {
-    role: sorted(list(set(movie["roles"][role] for movie in MOVIES)))
-    for role in ROLES
-}
 
 ELITE_RANGE = (21, 23)
 PREMIUM_RANGE = (17, 20)
@@ -161,39 +163,88 @@ def calculate_box_office(box_office_score: float, critical_acclaim: float, picks
     worldwide = lifetime_domestic * overseas_multiplier
     return opening_day, lifetime_domestic, worldwide
 
-def lock_role(role: str) -> None:
-    selected = st.session_state.get(f"pick_{role}")
-    if selected:
-        st.session_state.locked_picks[role] = selected
-        st.rerun()
+def draft_talent(role: str, name: str, movie_title: str) -> None:
+    st.session_state.locked_picks[role] = name
+    st.session_state.pick_origins[role] = f"{movie_title} ({st.session_state.current_movie['year']})"
+    # Automatically roll a new movie for the next choice
+    st.session_state.current_movie = random.choice(MOVIES)
 
+# State initialization
 if "locked_picks" not in st.session_state:
     st.session_state.locked_picks = {}
+if "pick_origins" not in st.session_state:
+    st.session_state.pick_origins = {}
+if "current_movie" not in st.session_state:
+    st.session_state.current_movie = random.choice(MOVIES)
 
 st.markdown(THEME_CSS, unsafe_allow_html=True)
 st.markdown("<h1 class='gold-serif'>🎥 Bollywood Box Office Draft War Room</h1>", unsafe_allow_html=True)
-st.caption("Draft 5 core roles. Build chemistry. Predict the box office dhamaka.")
+st.caption("Draft 5 core roles. Test your luck with random historical movie rolls. Predict the box office dhamaka.")
 
 all_filled = len(st.session_state.locked_picks) == len(ROLES)
 
-if not all_filled:
-    cols = st.columns(len(ROLES))
-    for idx, role in enumerate(ROLES):
-        with cols[idx]:
-            st.markdown(f"<h3 class='gold-serif'>{role}</h3>", unsafe_allow_html=True)
-            current_locked = st.session_state.locked_picks.get(role)
-            if current_locked:
-                st.success(f"Locked: {current_locked}")
-            else:
-                key = f"pick_{role}"
-                default_choice = ROLE_OPTIONS[role][0]
-                if key not in st.session_state:
-                    st.session_state[key] = default_choice
-                st.selectbox("Pick talent", ROLE_OPTIONS[role], key=key, label_visibility="collapsed")
-                st.button("Lock Role", key=f"lock_{role}", on_click=lock_role, args=(role,), use_container_width=True)
-else:
-    st.info("All 5 slots locked. Draft board hidden for a clean final projection view.")
+left_col, right_col = st.columns([1.2, 1.5], gap="large")
 
+with left_col:
+    st.markdown("### Your Crew Roster")
+    for role in ROLES:
+        if role in st.session_state.locked_picks:
+            name = st.session_state.locked_picks[role]
+            origin = st.session_state.pick_origins[role]
+            st.markdown(
+                f"""
+                <div class='card' style='border-color: #2ea043; background: rgba(46,160,67,0.08); padding: 0.75rem;'>
+                    <strong style='color: var(--gold); text-transform: uppercase; font-size: 0.8rem;'>{role}</strong><br>
+                    <span style='font-size: 1.1rem; font-weight: bold;'>{name}</span><br>
+                    <span style='font-size: 0.8rem; color: #a9b4d0;'>Drafted from: {origin}</span>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f"""
+                <div class='card' style='border-style: dashed; opacity: 0.6; padding: 0.75rem;'>
+                    <strong style='color: #99a2be; text-transform: uppercase; font-size: 0.8rem;'>{role}</strong><br>
+                    <span style='color: #7e879f; font-style: italic;'>[Empty Slot]</span>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+with right_col:
+    if not all_filled:
+        current_film = st.session_state.current_movie
+        st.markdown("### Now Showing for Selection")
+        st.markdown(
+            f"""
+            <div class='card' style='border-color: var(--gold); padding: 1.25rem;'>
+                <div class='movie-title'>{current_film['title']}</div>
+                <span style='color: #b8c2dd; font-size: 1rem;'>Era: <strong>{current_film['era']}</strong> | Year: <strong>{current_film['year']}</strong></span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        st.markdown("#### Choose ONE role to draft from this movie:")
+        
+        for role in ROLES:
+            talent_name = current_film["roles"][role]
+            is_role_filled = role in st.session_state.locked_picks
+            
+            # Button is disabled if you already locked that role on your team
+            st.button(
+                f"Draft {talent_name} as {role}",
+                key=f"btn_{role}_{current_film['title']}_{current_film['year']}",
+                disabled=is_role_filled,
+                use_container_width=True,
+                on_click=draft_talent,
+                args=(role, talent_name, current_film["title"])
+            )
+    else:
+        st.success("🎉 All slots filled! Scroll down to see your box office metrics below.")
+
+# Global results display once drafting or simulation begins
 if st.session_state.locked_picks:
     picks = st.session_state.locked_picks
     role_scores = {role: dynamic_tier_score(name) for role, name in picks.items()}
@@ -206,18 +257,16 @@ if st.session_state.locked_picks:
 
     opening_day, lifetime_domestic, worldwide = calculate_box_office(box_office_score, critical_acclaim, picks)
 
-    st.markdown("## Final Team & Projections")
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    for role in ROLES:
-        if role in picks:
-            st.write(f"**{role}:** {picks[role]} · Score: {dynamic_tier_score(picks[role])}")
+    st.markdown("---")
+    st.markdown("## Projections & Chemistry Evaluation")
+    
     if synergy_notes:
-        st.write("**Synergy Bonuses:**")
+        st.markdown("<div class='card' style='border-color: #2ea043;'>", unsafe_allow_html=True)
+        st.write("🔥 **Active Chemistry Synergy Bonuses:**")
         for note in synergy_notes:
-            st.write(f"- {note}")
-    st.markdown("</div>", unsafe_allow_html=True)
+            st.write(f"• {note}")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.write("")
     metrics = st.columns(5)
     metrics[0].metric("Box Office Score", f"{box_office_score:.1f}")
     metrics[1].metric("Critical Acclaim", f"{critical_acclaim:.1f}/100")
@@ -226,8 +275,8 @@ if st.session_state.locked_picks:
     metrics[4].metric("Worldwide Gross", format_inr_crore(worldwide))
     
     st.write("")
-    if st.button("Reset Draft", type="primary"):
-        for role in ROLES:
-            st.session_state.pop(f"pick_{role}", None)
+    if st.button("Reset War Room Draft", type="primary", use_container_width=True):
         st.session_state.locked_picks = {}
+        st.session_state.pick_origins = {}
+        st.session_state.current_movie = random.choice(MOVIES)
         st.rerun()
