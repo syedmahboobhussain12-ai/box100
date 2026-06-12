@@ -80,6 +80,26 @@ PREMIUM_TIER = {
 
 GLOBAL_DRAWS = {"Shah Rukh Khan", "Aamir Khan", "Prabhas"}
 ROLES = list(MOVIES.keys())
+ELITE_RANGE = (21, 23)
+PREMIUM_RANGE = (17, 20)
+BASELINE_RANGE = (12, 14)
+OPENING_MIN_CR = 2.0
+OPENING_LINEAR_RANGE_CR = 73.0
+OPENING_SCORE_BASE = 60.0
+OPENING_SCORE_SPAN = 75.0
+OPENING_BONUS_THRESHOLD = 135.0
+OPENING_BONUS_CAP = 10.0
+OPENING_BONUS_MULTIPLIER = 0.35
+ACCLAIM_BASELINE = 55.0
+ACCLAIM_SPAN = 45.0
+BASE_WOM_MULTIPLIER = 2.0
+MAX_WOM_BONUS = 6.5
+BASE_OVERSEAS_MULTIPLIER = 1.30
+SCORE_OVERSEAS_BONUS = 0.35
+PER_GLOBAL_DRAW_BONUS = 0.85
+GLOBAL_DRAW_PRESENCE_BONUS = 0.40
+CRITIC_BASE_MULTIPLIER = 4.2
+CRITIC_SYNERGY_MULTIPLIER = 0.8
 
 
 def stable_range_score(name: str, min_points: int, max_points: int) -> int:
@@ -89,10 +109,10 @@ def stable_range_score(name: str, min_points: int, max_points: int) -> int:
 
 def dynamic_tier_score(name: str) -> int:
     if name in ELITE_TIER:
-        return stable_range_score(name, 21, 23)
+        return stable_range_score(name, ELITE_RANGE[0], ELITE_RANGE[1])
     if name in PREMIUM_TIER:
-        return stable_range_score(name, 17, 20)
-    return stable_range_score(name, 12, 14)
+        return stable_range_score(name, PREMIUM_RANGE[0], PREMIUM_RANGE[1])
+    return stable_range_score(name, BASELINE_RANGE[0], BASELINE_RANGE[1])
 
 
 def team_synergy_boost(picks: dict[str, str]) -> tuple[int, list[str]]:
@@ -143,20 +163,20 @@ def format_inr_crore(crores: float) -> str:
 
 
 def calculate_box_office(box_office_score: float, critical_acclaim: float, picks: dict[str, str]) -> tuple[float, float, float]:
-    score_index = clamp((box_office_score - 60) / 75, 0.0, 1.0)
-    opening_day = 2 + (score_index * 73)
-    if box_office_score > 135:
-        opening_day += min(10.0, (box_office_score - 135) * 0.35)
+    score_index = clamp((box_office_score - OPENING_SCORE_BASE) / OPENING_SCORE_SPAN, 0.0, 1.0)
+    opening_day = OPENING_MIN_CR + (score_index * OPENING_LINEAR_RANGE_CR)
+    if box_office_score > OPENING_BONUS_THRESHOLD:
+        opening_day += min(OPENING_BONUS_CAP, (box_office_score - OPENING_BONUS_THRESHOLD) * OPENING_BONUS_MULTIPLIER)
 
-    acclaim_index = clamp((critical_acclaim - 55) / 45, 0.0, 1.0)
-    word_of_mouth_factor = 2.0 + acclaim_index * 6.5
+    acclaim_index = clamp((critical_acclaim - ACCLAIM_BASELINE) / ACCLAIM_SPAN, 0.0, 1.0)
+    word_of_mouth_factor = BASE_WOM_MULTIPLIER + acclaim_index * MAX_WOM_BONUS
     lifetime_domestic = opening_day * word_of_mouth_factor
 
     team = set(picks.values())
     global_count = len(team & GLOBAL_DRAWS)
-    overseas_multiplier = 1.30 + score_index * 0.35 + (global_count * 0.85)
+    overseas_multiplier = BASE_OVERSEAS_MULTIPLIER + score_index * SCORE_OVERSEAS_BONUS + (global_count * PER_GLOBAL_DRAW_BONUS)
     if global_count:
-        overseas_multiplier += 0.40
+        overseas_multiplier += GLOBAL_DRAW_PRESENCE_BONUS
     worldwide = lifetime_domestic * overseas_multiplier
     return opening_day, lifetime_domestic, worldwide
 
@@ -202,7 +222,7 @@ if st.session_state.locked_picks:
     synergy_score, synergy_notes = team_synergy_boost(picks)
     box_office_score = base_score_total + synergy_score
 
-    critical_acclaim = (base_score_total / len(picks)) * 4.2 + (synergy_score * 0.8)
+    critical_acclaim = (base_score_total / len(picks)) * CRITIC_BASE_MULTIPLIER + (synergy_score * CRITIC_SYNERGY_MULTIPLIER)
     critical_acclaim = clamp(critical_acclaim, 45.0, 100.0)
 
     opening_day, lifetime_domestic, worldwide = calculate_box_office(box_office_score, critical_acclaim, picks)
