@@ -1004,17 +1004,7 @@ MOVIES = [
             "Writer": "Utkarshini Vashishtha",
         },
     },
-    {
-        "title": "The Kashmir Files",
-        "year": 2022,
-        "era": "2021-2026",
-        "roles": {
-            "Director": "Vivek Agnihotri",
-            "Lead Male": "Mithun Chakraborty",
-            "Lead Female": "Pallavi Joshi",
-            "Music Director": "Rohit Sharma",
-            "Writer": "Vivek Agnihotri",
-        },
+  
     },
     {
         "title": "Bhool Bhulaiyaa 2",
