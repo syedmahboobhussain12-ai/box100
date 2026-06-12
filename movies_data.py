@@ -1196,7 +1196,6 @@ MOVIES = [
             "Writer": "Sneha Desai",
         },
     },
-[
     {"title":"Laapataa Ladies","year":2024,"era":"Modern","roles":{"Director":"Kiran Rao","Lead Male":"Sparsh Shrivastava","Lead Female":"Nitanshi Goel","Music Director":"Ram Sampath","Writer":"Biplab Goswami"}},
     {"title":"Kill","year":2024,"era":"Modern","roles":{"Director":"Nikhil Nagesh Bhat","Lead Male":"Lakshya","Lead Female":"Tanya Maniktala","Music Director":"Haroon-Gavin","Writer":"Nikhil Nagesh Bhat"}},
     {"title":"Crew","year":2024,"era":"Modern","roles":{"Director":"Rajesh Krishnan","Lead Male":"Diljit Dosanjh","Lead Female":"Kareena Kapoor Khan","Music Director":"Badshah","Writer":"Nidhi Mehra"}},
@@ -1253,5 +1252,4 @@ MOVIES = [
     {"title":"Ikkis","year":2026,"era":"Modern","roles":{"Director":"Sriram Raghavan","Lead Male":"Agastya Nanda","Lead Female":"Dharmendra Ensemble","Music Director":"Amit Trivedi","Writer":"Sriram Raghavan"}},
     {"title":"Batwara 1947","year":2026,"era":"Modern","roles":{"Director":"Rajkumar Santoshi","Lead Male":"Sunny Deol","Lead Female":"Preity Zinta","Music Director":"AR Rahman","Writer":"Rajkumar Santoshi"}},
     {"title":"Chand Mera Dil","year":2026,"era":"Modern","roles":{"Director":"Vivek Soni","Lead Male":"Lakshya","Lead Female":"Ananya Panday","Music Director":"Tanishk Bagchi","Writer":"Vivek Soni"}}
-]
 ]
