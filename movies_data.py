@@ -1,1 +1,47 @@
-
+MOVIES = {
+    "Director": [
+        "S.S. Rajamouli",
+        "Rajkumar Hirani",
+        "Sanjay Leela Bhansali",
+        "Imtiaz Ali",
+        "Rohit Shetty",
+        "Siddharth Anand",
+        "Nitesh Tiwari",
+        "Aditya Chopra",
+        "Yash Chopra",
+    ],
+    "Lead Actor": [
+        "Shah Rukh Khan",
+        "Aamir Khan",
+        "Amitabh Bachchan",
+        "Prabhas",
+        "Ranbir Kapoor",
+        "Hrithik Roshan",
+        "Ranveer Singh",
+        "Vicky Kaushal",
+    ],
+    "Lead Actress": [
+        "Alia Bhatt",
+        "Deepika Padukone",
+        "Kareena Kapoor",
+        "Shraddha Kapoor",
+        "Priyanka Chopra Jonas",
+        "Katrina Kaif",
+    ],
+    "Music Composer": [
+        "A.R. Rahman",
+        "M.M. Keeravani",
+        "Pritam",
+        "Vishal-Shekhar",
+        "Amit Trivedi",
+        "Shankar-Ehsaan-Loy",
+    ],
+    "Writer": [
+        "Salim-Javed",
+        "K.V. Vijayendra Prasad",
+        "Juhi Chaturvedi",
+        "Anurag Kashyap",
+        "Jaideep Sahni",
+        "Hussain Dalal",
+    ],
+}
