@@ -89,19 +89,24 @@ PREMIUM_TIER = {
 }
 GLOBAL_DRAWS = {"Shah Rukh Khan", "Aamir Khan", "Prabhas", "Salman Khan"}
 
-# Expanded to 6 Slots
-ROLES = ["Director", "Genre", "Lead Male", "Lead Female", "Music Director", "Writer"]
+# Swapped Genre for Release Window
+ROLES = ["Director", "Release Window", "Lead Male", "Lead Female", "Music Director", "Writer"]
 
-# Math Constants
+ERA_SCALERS = {
+    "Vintage": 0.05,       # Caps out around ₹50-80 Cr worldwide
+    "90s": 0.15,           # Caps out around ₹150-250 Cr worldwide
+    "Millennium": 0.40,    # Caps out around ₹400-500 Cr worldwide
+    "Modern": 0.75,        # Caps out around ₹700-900 Cr worldwide
+    "2021-2026": 1.25,     # Can smash past ₹1,500+ Cr worldwide
+    "All": 1.0             # Standard baseline for mixed drafts
+}
+
 CRITIC_BASE_MULTIPLIER = 4.2
 CRITIC_SYNERGY_MULTIPLIER = 0.8
 OPENING_MIN_CR = 2.0
 OPENING_LINEAR_RANGE_CR = 73.0
 OPENING_SCORE_BASE = 60.0
 OPENING_SCORE_SPAN = 75.0
-OPENING_BONUS_THRESHOLD = 135.0
-OPENING_BONUS_CAP = 10.0
-OPENING_BONUS_MULTIPLIER = 0.35
 
 # --- HELPER FUNCTIONS ---
 def stable_range_score(text: str, min_points: int, max_points: int) -> int:
@@ -109,8 +114,8 @@ def stable_range_score(text: str, min_points: int, max_points: int) -> int:
     return min_points + (sum(ord(ch) for ch in text) % span)
 
 def dynamic_tier_score(name: str) -> int:
-    # Give genre picks a flat baseline so it doesn't break math
-    if any(g in name for g in ["Action", "Romance", "Drama", "Thriller", "Comedy"]):
+    # Give Release Window picks a flat baseline so it doesn't break math
+    if any(w in name for w in ["Premiere", "Clash", "Friday", "Dump"]):
         return 16
     if name in ELITE_TIER: return stable_range_score(name, 21, 23)
     if name in PREMIUM_TIER: return stable_range_score(name, 17, 20)
@@ -141,35 +146,34 @@ def get_era_pool():
         return MOVIES
     return [m for m in MOVIES if m["era"] == st.session_state.chosen_era]
 
-def inject_genre_and_roll():
+def inject_release_window_and_roll():
     pool = get_era_pool()
     movie = random.choice(pool).copy()
     
-    # Dynamically inject historically accurate genres based on era
-    if movie["era"] == "Vintage":
-        genres = ["Epic Historical Period Drama 🏰", "Classic Tragedy 🎭", "Gothic Romance 🥀"]
-    elif movie["era"] == "90s":
-        genres = ["High-Octane Action Masala 💥", "Soulful Romantic Drama 💖", "Family Entertainer 👨‍👩‍👧‍👦"]
-    elif movie["era"] == "Modern":
-        genres = ["Heartwarming Social Drama 🌍", "Gritty Crime Thriller 🚬", "Biopic 📖"]
-    else:
-        genres = ["Commercial Pan-India Epic 🌋", "Spy Universe Thriller 🕶️", "Mythological Fantasy ✨"]
+    # Dynamically inject release window events
+    windows = [
+        "Solo Festival Premiere 🎆",     # Massive BO Boost
+        "Massive Holiday Clash ⚔️",    # Good BO Boost, Minor RT penalty
+        "Standard Normal Friday 📅",     # Baseline
+        "Hollywood Tentpole Clash 🦸‍♂️", # Severe BO Penalty
+        "Off-Season Dump Month 🌧️"      # Disastrous BO Penalty
+    ]
         
-    g_idx = stable_range_score(movie["title"], 0, len(genres)-1)
+    w_idx = stable_range_score(movie["title"] + str(movie["year"]), 0, len(windows)-1)
     movie["roles"] = movie["roles"].copy()
-    movie["roles"]["Genre"] = genres[g_idx]
+    movie["roles"]["Release Window"] = windows[w_idx]
     
     return movie
 
 def generate_cinematic_title(picks: dict[str, str]) -> str:
-    genre = picks.get("Genre", "")
+    director = picks.get("Director", "")
     base_hash = stable_range_score("".join(picks.values()), 0, 2)
     
-    if "Action" in genre or "Thriller" in genre or "Spy" in genre:
+    if director in ["Rohit Shetty", "Siddharth Anand", "Prashanth Neel"]:
         titles = ["Kshatriya: The Ultimate Warrior", "Vengeance Protocol", "Agni Patha"]
-    elif "Romance" in genre or "Comedy" in genre or "Family" in genre:
+    elif director in ["Imtiaz Ali", "Karan Johar", "Yash Chopra"]:
         titles = ["Hum Tum Aur Ishq", "Prem Deewane", "Dil Ka Safar"]
-    elif "Social" in genre or "Biopic" in genre or "Tragedy" in genre:
+    elif director in ["Rajkumar Hirani", "Nitesh Tiwari", "Meghna Gulzar"]:
         titles = ["Satyamev Jayate", "Naya Bharat", "Umeed"]
     else:
         titles = ["Samrat Shaurya", "The Throne of Rajputana", "Rajvansh"]
@@ -205,7 +209,7 @@ def generate_trade_review(bo_score: float, rt_score: float) -> tuple[str, str]:
 
 def determine_ott_platform(picks: dict[str, str], bo_score: float, rt_score: float) -> str:
     team = set(picks.values())
-    if "S. S. Rajamouli" in team or "Prabhas" in team or "Action" in picks.get("Genre", ""):
+    if "S. S. Rajamouli" in team or "Prabhas" in team:
         return "**Netflix 🔴** (Record-Breaking Multi-Lingual Global Deal: ₹250 Cr+)"
     if "Sanjay Leela Bhansali" in team or rt_score >= 80:
         return "**Netflix 🔴** (Trending #1 Globally in Non-English Films)"
@@ -218,11 +222,11 @@ def determine_ott_platform(picks: dict[str, str], bo_score: float, rt_score: flo
 def draft_talent(role: str, name: str, movie_title: str, movie_year: int) -> None:
     st.session_state.locked_picks[role] = name
     st.session_state.pick_origins[role] = f"{movie_title} ({movie_year})"
-    st.session_state.current_movie = inject_genre_and_roll()
+    st.session_state.current_movie = inject_release_window_and_roll()
 
 def select_era(era_key: str):
     st.session_state.chosen_era = era_key
-    st.session_state.current_movie = inject_genre_and_roll()
+    st.session_state.current_movie = inject_release_window_and_roll()
 
 # --- INITIALIZATION ---
 if "chosen_era" not in st.session_state: st.session_state.chosen_era = None
@@ -318,18 +322,49 @@ else:
         if "S. S. Rajamouli" in picks.values() and "K. V. Vijayendra Prasad" in picks.values(): synergy_score += 12
         box_office_score = base_score_total + synergy_score
 
-        # Math Engine
+        # Apply Release Window Multipliers
+        window = picks.get("Release Window", "")
+        bo_mult = 1.0
+        rt_mod = 0.0
+        
+        if "Solo Festival" in window:
+            bo_mult = 1.25
+        elif "Holiday Clash" in window:
+            bo_mult = 1.15
+            rt_mod = -5.0
+        elif "Hollywood" in window:
+            bo_mult = 0.85
+        elif "Off-Season" in window:
+            bo_mult = 0.65
+
+        # Critical Acclaim Math
         rt_score = (base_score_total / len(picks)) * CRITIC_BASE_MULTIPLIER + (synergy_score * CRITIC_SYNERGY_MULTIPLIER)
+        rt_score += rt_mod
         rt_score = clamp(rt_score, 12.0, 99.0)
         
+        # Opening Day Math
         score_index = clamp((box_office_score - OPENING_SCORE_BASE) / OPENING_SCORE_SPAN, 0.0, 1.0)
-        opening_day = OPENING_MIN_CR + (score_index * OPENING_LINEAR_RANGE_CR)
+        opening_day = (OPENING_MIN_CR + (score_index * OPENING_LINEAR_RANGE_CR)) * bo_mult
         if box_office_score > 130: opening_day += min(10.0, (box_office_score - 130) * 0.35)
         
-        lifetime_domestic = opening_day * (2.0 + clamp((rt_score - 55) / 45, 0.0, 1.0) * 6.5)
+        # Exponential Word of Mouth Formula
+        if rt_score >= 90:
+            wom = 7.0
+        elif rt_score < 40:
+            wom = 0.5
+        else:
+            wom = 2.0 + ((rt_score - 40) / 50.0) * 4.5
+            
+        lifetime_domestic = opening_day * wom
         
+        # Worldwide & Era Scaling Math
         global_count = len(set(picks.values()) & GLOBAL_DRAWS)
-        worldwide = lifetime_domestic * (1.30 + score_index * 0.35 + (global_count * 0.85))
+        overseas_multiplier = 1.30 + score_index * 0.35 + (global_count * 0.85)
+        
+        era = st.session_state.chosen_era
+        scaler = ERA_SCALERS.get(era, 1.0)
+        
+        worldwide = (lifetime_domestic * overseas_multiplier) * scaler
 
         # Identity & Review Engine
         movie_title = generate_cinematic_title(picks)
@@ -366,7 +401,7 @@ else:
             if st.button("🔄 Play Era Again", use_container_width=True):
                 st.session_state.locked_picks = {}
                 st.session_state.pick_origins = {}
-                st.session_state.current_movie = inject_genre_and_roll()
+                st.session_state.current_movie = inject_release_window_and_roll()
                 st.rerun()
         with c2:
             if st.button("⚙️ Change Era", use_container_width=True):
