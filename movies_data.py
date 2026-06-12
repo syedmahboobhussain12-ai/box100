@@ -1208,4 +1208,201 @@ MOVIES = [
             "Writer": "Sneha Desai",
         },
     },
+  # --- 2024 Blockbusters ---
+    {
+        "title": "Shaitaan",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Vikas Bahl",
+            "Lead Male": "Ajay Devgn",
+            "Lead Female": "Jyothika",
+            "Music Director": "Amit Trivedi",
+            "Writer": "Aamil Keeyan Khan",
+        },
+    },
+    {
+        "title": "Chandu Champion",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Kabir Khan",
+            "Lead Male": "Kartik Aaryan",
+            "Lead Female": "Bhagyashree Borse",
+            "Music Director": "Pritam",
+            "Writer": "Kabir Khan",
+        },
+    },
+    {
+        "title": "Devara: Part 1",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Koratala Siva",
+            "Lead Male": "Jr. NTR",
+            "Lead Female": "Janhvi Kapoor",
+            "Music Director": "Anirudh Ravichander",
+            "Writer": "Koratala Siva",
+        },
+    },
+    {
+        "title": "Amar Singh Chamkila",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Imtiaz Ali",
+            "Lead Male": "Diljit Dosanjh",
+            "Lead Female": "Parineeti Chopra",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Imtiaz Ali",
+        },
+    },
+    {
+        "title": "Teri Baaton Mein Aisa Uljha Jiya",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Amit Joshi",
+            "Lead Male": "Shahid Kapoor",
+            "Lead Female": "Kriti Sanon",
+            "Music Director": "Tanishk Bagchi",
+            "Writer": "Amit Joshi",
+        },
+    },
+    {
+        "title": "Maidaan",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Amit Ravindernath Sharma",
+            "Lead Male": "Ajay Devgn",
+            "Lead Female": "Priyamani",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Saiwyn Quadras",
+        },
+    },
+    {
+        "title": "Guntur Kaaram",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Trivikram Srinivas",
+            "Lead Male": "Mahesh Babu",
+            "Lead Female": "Sreeleela",
+            "Music Director": "Thaman S",
+            "Writer": "Trivikram Srinivas",
+        },
+    },
+
+    # --- 2025 Highly Anticipated Mega-Releases ---
+    {
+        "title": "War 2",
+        "year": 2025,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Ayan Mukerji",
+            "Lead Male": "Hrithik Roshan",
+            "Lead Female": "Kiara Advani",
+            "Music Director": "Pritam",
+            "Writer": "Shridhar Raghavan",
+        },
+    },
+    {
+        "title": "Sikandar",
+        "year": 2025,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "A. R. Murugadoss",
+            "Lead Male": "Salman Khan",
+            "Lead Female": "Rashmika Mandanna",
+            "Music Director": "Pritam",
+            "Writer": "A. R. Murugadoss",
+        },
+    },
+    {
+        "title": "Toxic",
+        "year": 2025,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Geetu Mohandas",
+            "Lead Male": "Yash",
+            "Lead Female": "Kiara Advani",
+            "Music Director": "Charan Raj",
+            "Writer": "Geetu Mohandas",
+        },
+    },
+    {
+        "title": "Ramayana",
+        "year": 2025,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Nitesh Tiwari",
+            "Lead Male": "Ranbir Kapoor",
+            "Lead Female": "Sai Pallavi",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Nitesh Tiwari",
+        },
+    },
+    {
+        "title": "Lahore 1947",
+        "year": 2025,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Rajkumar Santoshi",
+            "Lead Male": "Sunny Deol",
+            "Lead Female": "Preity Zinta",
+            "Music Director": "A. R. Rahman",
+            "Writer": "Rajkumar Santoshi",
+        },
+    },
+
+    # --- 2026 Future Cinematic Universe Projects ---
+    {
+        "title": "Love & War",
+        "year": 2026,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Sanjay Leela Bhansali",
+            "Lead Male": "Ranbir Kapoor",
+            "Lead Female": "Alia Bhatt",
+            "Music Director": "Sanjay Leela Bhansali",
+            "Writer": "Prakash Kapadia",
+        },
+    },
+    {
+        "title": "Animal Park",
+        "year": 2026,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Sandeep Reddy Vanga",
+            "Lead Male": "Ranbir Kapoor",
+            "Lead Female": "Rashmika Mandanna",
+            "Music Director": "Harshavardhan Rameshwar",
+            "Writer": "Sandeep Reddy Vanga",
+        },
+    },
+    {
+        "title": "Tiger vs Pathaan",
+        "year": 2026,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Siddharth Anand",
+            "Lead Male": "Salman Khan",
+            "Lead Female": "Deepika Padukone",
+            "Music Director": "Vishal-Shekhar",
+            "Writer": "Shridhar Raghavan",
+        },
+    },
+    {
+        "title": "Pathaan 2",
+        "year": 2026,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Siddharth Anand",
+            "Lead Male": "Shah Rukh Khan",
+            "Lead Female": "Deepika Padukone",
+            "Music Director": "Vishal-Shekhar",
+            "Writer": "Shridhar Raghavan",
+        },
+    }
 ]
