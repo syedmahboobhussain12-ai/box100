@@ -12,6 +12,7 @@ THEME_CSS = """
     --bg-mid: #1a0003;
     --bg-bottom: #0a0002;
     --gold: #d4af37;
+    --rt-red: #fa320a;
 }
 [data-testid="stAppViewContainer"] {
     background: radial-gradient(circle at top, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
@@ -49,6 +50,13 @@ div[data-testid="stMetric"] {
     color: var(--gold);
     font-weight: bold;
     margin-bottom: 0.1rem;
+}
+.ott-banner {
+    background: linear-gradient(90deg, rgba(20,20,20,1) 0%, rgba(60,10,10,1) 100%);
+    border-left: 5px solid var(--gold);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
 }
 </style>
 """
@@ -120,6 +128,44 @@ def team_synergy_boost(picks: dict[str, str]) -> tuple[int, list[str]]:
         notes.append("Auteur Director + A.R. Rahman musical magic (+12)")
     return boosts, notes
 
+def generate_movie_identity(picks: dict[str, str]) -> tuple[str, str]:
+    director = picks.get("Director", "")
+    
+    # Dynamic Genre & Title Engine based on the Director's typical style
+    if director in ["Rohit Shetty", "Siddharth Anand", "Prashanth Neel"]:
+        genre = "High-Octane Action Masala 💥"
+        titles = ["Vengeance: The Final Chapter", "Force Protocol", "Sher-E-Hindustan", "Blast Radius", "The Syndicate"]
+    elif director in ["Imtiaz Ali", "Karan Johar", "Yash Chopra"]:
+        genre = "Soulful Romantic Drama 💖"
+        titles = ["Safar-E-Ishq", "Dil Dhadakne Tak", "Khwaab", "Tumse Milke", "Jahaan"]
+    elif director in ["S. S. Rajamouli", "Sanjay Leela Bhansali", "Ashutosh Gowariker"]:
+        genre = "Epic Historical Period Drama 🏰"
+        titles = ["Mahayoddha", "The Imperial Throne", "Rajputana", "Legend of the Sword", "Samrat"]
+    elif director in ["Rajkumar Hirani", "Nitesh Tiwari", "Meghna Gulzar"]:
+        genre = "Heartwarming Social Drama 🌍"
+        titles = ["Kal Ki Fikar", "Umeed", "Manzil", "Zindagi Ek Safar", "The Common Man"]
+    else:
+        genre = "Commercial Pan-India Entertainer 🎬"
+        titles = ["The Big Heist", "Kismat", "Hero No. 1", "Baaghi: Reloaded", "The Last Stand"]
+        
+    # We use stable_range_score to pick a consistent title based on the crew so it doesn't flicker on reruns
+    title_index = stable_range_score("".join(picks.values()), 0, len(titles)-1)
+    return genre, titles[title_index]
+
+def determine_ott_platform(picks: dict[str, str], box_office: float, rt_score: float) -> str:
+    team = set(picks.values())
+    
+    # Logic based on real-world OTT acquisition patterns
+    if "S. S. Rajamouli" in team or "Prabhas" in team or "Prashanth Neel" in team:
+        return "**Netflix 🔴** (Record-Breaking Multi-Lingual Global Deal: ₹250 Cr+)"
+    if "Sanjay Leela Bhansali" in team or rt_score >= 85:
+        return "**Netflix 🔴** (Trending #1 Globally in Non-English Films)"
+    if box_office > 115:
+        return "**Amazon Prime Video 🔵** (Exclusive Post-Theatrical Festive Blockbuster Premiere)"
+    if rt_score < 60:
+        return "**Zee5 / JioCinema 🟠** (Picked up quietly for the late-night action/masala catalog)"
+    return "**Disney+ Hotstar 🟢** (Family Weekend Premiere Streaming Rights)"
+
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
@@ -145,13 +191,13 @@ def format_inr_crore(crores: float) -> str:
         decimals = 0
     return f"₹{indian_group(whole)}.{decimals:02d} Cr"
 
-def calculate_box_office(box_office_score: float, critical_acclaim: float, picks: dict[str, str]) -> tuple[float, float, float]:
+def calculate_box_office(box_office_score: float, rt_score: float, picks: dict[str, str]) -> tuple[float, float, float]:
     score_index = clamp((box_office_score - OPENING_SCORE_BASE) / OPENING_SCORE_SPAN, 0.0, 1.0)
     opening_day = OPENING_MIN_CR + (score_index * OPENING_LINEAR_RANGE_CR)
     if box_office_score > OPENING_BONUS_THRESHOLD:
         opening_day += min(OPENING_BONUS_CAP, (box_office_score - OPENING_BONUS_THRESHOLD) * OPENING_BONUS_MULTIPLIER)
 
-    acclaim_index = clamp((critical_acclaim - ACCLAIM_BASELINE) / ACCLAIM_SPAN, 0.0, 1.0)
+    acclaim_index = clamp((rt_score - ACCLAIM_BASELINE) / ACCLAIM_SPAN, 0.0, 1.0)
     word_of_mouth_factor = BASE_WOM_MULTIPLIER + acclaim_index * MAX_WOM_BONUS
     lifetime_domestic = opening_day * word_of_mouth_factor
 
@@ -166,10 +212,8 @@ def calculate_box_office(box_office_score: float, critical_acclaim: float, picks
 def draft_talent(role: str, name: str, movie_title: str) -> None:
     st.session_state.locked_picks[role] = name
     st.session_state.pick_origins[role] = f"{movie_title} ({st.session_state.current_movie['year']})"
-    # Automatically roll a new movie for the next choice
     st.session_state.current_movie = random.choice(MOVIES)
 
-# State initialization
 if "locked_picks" not in st.session_state:
     st.session_state.locked_picks = {}
 if "pick_origins" not in st.session_state:
@@ -229,10 +273,9 @@ with right_col:
         st.markdown("#### Choose ONE role to draft from this movie:")
         
         for role in ROLES:
-            talent_name = current_film["roles"][role]
+            talent_name = current_film["roles"].get(role, "Not Found")
             is_role_filled = role in st.session_state.locked_picks
             
-            # Button is disabled if you already locked that role on your team
             st.button(
                 f"Draft {talent_name} as {role}",
                 key=f"btn_{role}_{current_film['title']}_{current_film['year']}",
@@ -244,7 +287,6 @@ with right_col:
     else:
         st.success("🎉 All slots filled! Scroll down to see your box office metrics below.")
 
-# Global results display once drafting or simulation begins
 if st.session_state.locked_picks:
     picks = st.session_state.locked_picks
     role_scores = {role: dynamic_tier_score(name) for role, name in picks.items()}
@@ -252,13 +294,27 @@ if st.session_state.locked_picks:
     synergy_score, synergy_notes = team_synergy_boost(picks)
     box_office_score = base_score_total + synergy_score
 
-    critical_acclaim = (base_score_total / len(picks)) * CRITIC_BASE_MULTIPLIER + (synergy_score * CRITIC_SYNERGY_MULTIPLIER)
-    critical_acclaim = clamp(critical_acclaim, 45.0, 100.0)
+    # Replaced 'Critical Acclaim' with Rotten Tomatoes logic
+    rt_score = (base_score_total / len(picks)) * CRITIC_BASE_MULTIPLIER + (synergy_score * CRITIC_SYNERGY_MULTIPLIER)
+    rt_score = clamp(rt_score, 12.0, 100.0) # Allowed to go lower for pure flops
 
-    opening_day, lifetime_domestic, worldwide = calculate_box_office(box_office_score, critical_acclaim, picks)
+    opening_day, lifetime_domestic, worldwide = calculate_box_office(box_office_score, rt_score, picks)
+    
+    movie_genre, movie_title = generate_movie_identity(picks)
+    ott_platform = determine_ott_platform(picks, box_office_score, rt_score)
 
     st.markdown("---")
-    st.markdown("## Projections & Chemistry Evaluation")
+    
+    # The New Theatrical Announcement Header
+    st.markdown(
+        f"""
+        <div style='text-align: center; margin-bottom: 2rem;'>
+            <h4 style='color: #a9b4d0; text-transform: uppercase; letter-spacing: 2px;'>Upcoming {movie_genre}</h4>
+            <h1 style='font-size: 3.5rem; color: #fff; text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.5); font-family: "Georgia", serif;'>"{movie_title}"</h1>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
     
     if synergy_notes:
         st.markdown("<div class='card' style='border-color: #2ea043;'>", unsafe_allow_html=True)
@@ -269,10 +325,25 @@ if st.session_state.locked_picks:
 
     metrics = st.columns(5)
     metrics[0].metric("Box Office Score", f"{box_office_score:.1f}")
-    metrics[1].metric("Critical Acclaim", f"{critical_acclaim:.1f}/100")
+    
+    # Rotten Tomatoes formatting (Fresh vs Rotten)
+    rt_label = "Rotten Tomatoes 🍅" if rt_score >= 60 else "Rotten Tomatoes 🤢"
+    metrics[1].metric(rt_label, f"{rt_score:.0f}%")
+    
     metrics[2].metric("Opening Day", format_inr_crore(opening_day))
     metrics[3].metric("Lifetime Domestic", format_inr_crore(lifetime_domestic))
     metrics[4].metric("Worldwide Gross", format_inr_crore(worldwide))
+    
+    # OTT Distribution Banner
+    st.markdown(
+        f"""
+        <div class='ott-banner'>
+            <span style='color: #99a2be; font-size: 0.9rem; text-transform: uppercase;'>Post-Theatrical Streaming Rights Sold To:</span><br>
+            <span style='font-size: 1.2rem;'>{ott_platform}</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
     st.write("")
     if st.button("Reset War Room Draft", type="primary", use_container_width=True):
