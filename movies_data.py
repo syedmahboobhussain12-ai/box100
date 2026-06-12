@@ -1189,4 +1189,16 @@ MOVIES = [
             "Writer": "Kshitij Patwardhan",
         },
     },
+    {
+        "title": "Laapataa Ladies",
+        "year": 2024,
+        "era": "2021-2026",
+        "roles": {
+            "Director": "Kiran Rao",
+            "Lead Male": "Sparsh Shrivastava",
+            "Lead Female": "Nitanshi Goel",
+            "Music Director": "Ram Sampath",
+            "Writer": "Sneha Desai",
+        },
+    },
 ]
