@@ -38,7 +38,8 @@ div[data-testid="stMetric"] {
     border: 1px solid var(--gold);
     border-radius: 12px;
     background: rgba(10, 0, 2, 0.55);
-    padding: 0.4rem 0.6rem;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
 }
 .card {
     border: 1px solid var(--gold);
@@ -88,17 +89,15 @@ PREMIUM_TIER = {
     "Salman Khan", "Ajay Devgn", "Anushka Sharma", "Katrina Kaif", "Zoya Akhtar"
 }
 GLOBAL_DRAWS = {"Shah Rukh Khan", "Aamir Khan", "Prabhas", "Salman Khan"}
-
-# Swapped Genre for Release Window
 ROLES = ["Director", "Release Window", "Lead Male", "Lead Female", "Music Director", "Writer"]
 
 ERA_SCALERS = {
-    "Vintage": 0.05,       # Caps out around ₹50-80 Cr worldwide
-    "90s": 0.15,           # Caps out around ₹150-250 Cr worldwide
-    "Millennium": 0.40,    # Caps out around ₹400-500 Cr worldwide
-    "Modern": 0.75,        # Caps out around ₹700-900 Cr worldwide
-    "2021-2026": 1.25,     # Can smash past ₹1,500+ Cr worldwide
-    "All": 1.0             # Standard baseline for mixed drafts
+    "Vintage": 0.05,       
+    "90s": 0.15,           
+    "Millennium": 0.40,    
+    "Modern": 0.75,        
+    "2021-2026": 1.25,     
+    "All": 1.0             
 }
 
 CRITIC_BASE_MULTIPLIER = 4.2
@@ -114,9 +113,7 @@ def stable_range_score(text: str, min_points: int, max_points: int) -> int:
     return min_points + (sum(ord(ch) for ch in text) % span)
 
 def dynamic_tier_score(name: str) -> int:
-    # Give Release Window picks a flat baseline so it doesn't break math
-    if any(w in name for w in ["Premiere", "Clash", "Friday", "Dump"]):
-        return 16
+    if any(w in name for w in ["Premiere", "Clash", "Friday", "Dump"]): return 16
     if name in ELITE_TIER: return stable_range_score(name, 21, 23)
     if name in PREMIUM_TIER: return stable_range_score(name, 17, 20)
     return stable_range_score(name, 12, 14)
@@ -148,15 +145,21 @@ def get_era_pool():
 
 def inject_release_window_and_roll():
     pool = get_era_pool()
-    movie = random.choice(pool).copy()
     
-    # Dynamically inject release window events
+    available_movies = [m for m in pool if m["title"] not in st.session_state.seen_movies]
+    if not available_movies:
+        st.session_state.seen_movies = set()
+        available_movies = pool
+        
+    movie = random.choice(available_movies).copy()
+    st.session_state.seen_movies.add(movie["title"])
+    
     windows = [
-        "Solo Festival Premiere 🎆",     # Massive BO Boost
-        "Massive Holiday Clash ⚔️",    # Good BO Boost, Minor RT penalty
-        "Standard Normal Friday 📅",     # Baseline
-        "Hollywood Tentpole Clash 🦸‍♂️", # Severe BO Penalty
-        "Off-Season Dump Month 🌧️"      # Disastrous BO Penalty
+        "Solo Festival Premiere 🎆",     
+        "Massive Holiday Clash ⚔️",    
+        "Standard Normal Friday 📅",     
+        "Hollywood Tentpole Clash 🦸‍♂️", 
+        "Off-Season Dump Month 🌧️"      
     ]
         
     w_idx = stable_range_score(movie["title"] + str(movie["year"]), 0, len(windows)-1)
@@ -167,45 +170,37 @@ def inject_release_window_and_roll():
 
 def generate_cinematic_title(picks: dict[str, str]) -> str:
     director = picks.get("Director", "")
-    base_hash = stable_range_score("".join(picks.values()), 0, 2)
+    base_hash = stable_range_score("".join(picks.values()), 0, 4)
     
-    if director in ["Rohit Shetty", "Siddharth Anand", "Prashanth Neel"]:
-        titles = ["Kshatriya: The Ultimate Warrior", "Vengeance Protocol", "Agni Patha"]
+    if director in ["Rohit Shetty", "Siddharth Anand", "Prashanth Neel", "Atlee"]:
+        titles = ["Kshatriya: The Ultimate Warrior", "Vengeance Protocol", "Agni Patha", "The Syndicate", "Force Matrix"]
     elif director in ["Imtiaz Ali", "Karan Johar", "Yash Chopra"]:
-        titles = ["Hum Tum Aur Ishq", "Prem Deewane", "Dil Ka Safar"]
+        titles = ["Hum Tum Aur Ishq", "Prem Deewane", "Dil Ka Safar", "Khwaab", "Safar-E-Ishq"]
     elif director in ["Rajkumar Hirani", "Nitesh Tiwari", "Meghna Gulzar"]:
-        titles = ["Satyamev Jayate", "Naya Bharat", "Umeed"]
+        titles = ["Satyamev Jayate", "Naya Bharat", "Umeed", "The Common Man", "Zindagi Ek Safar"]
     else:
-        titles = ["Samrat Shaurya", "The Throne of Rajputana", "Rajvansh"]
+        titles = ["Samrat Shaurya", "The Throne of Rajputana", "Rajvansh", "Legend of the Sword", "Mahayoddha"]
         
     return titles[base_hash]
 
-def generate_trade_review(bo_score: float, rt_score: float) -> tuple[str, str]:
+def generate_trade_review(bo_score: float, rt_score: float, team_dna: str) -> tuple[str, str]:
+    idx = stable_range_score(team_dna, 0, 2)
     if bo_score >= 105 and rt_score >= 75:
-        return (
-            "A historic cinematic triumph where impeccable storytelling perfectly marries raw, unadulterated mass appeal!",
-            "Word-of-mouth spread like wildfire on opening night, turning theater halls into an absolute festival celebration."
-        )
+        lines1 = ["A historic cinematic triumph where impeccable storytelling perfectly marries raw mass appeal!", "An absolute masterclass that shattered all box office expectations on day one.", "The industry is in shock at this masterpiece; theater owners are adding 3 AM shows!"]
+        lines2 = ["Word-of-mouth spread like wildfire, turning theater halls into an absolute festival.", "It will be studied in film schools and trade magazines for decades to come.", "Housefull boards are permanently fixed outside multiplexes across the country!"]
     elif bo_score >= 100 and rt_score < 60:
-        return (
-            "Audiences completely ignored the critics' rants and flocked to single screens for pure front-row fan service.",
-            "Massive star power and foot-tapping tracks carried this scriptless wonder all the way to the bank!"
-        )
+        lines1 = ["Audiences completely ignored the critics' rants and flocked to single screens for pure fan service.", "A scriptless wonder that proves you don't need logic when you have this much star power.", "Critics hated every second of it, but the whistling crowds couldn't hear them over the background score!"]
+        lines2 = ["Massive star power and foot-tapping tracks carried this project all the way to the bank.", "It is completely immune to bad reviews. A true commercial masala juggernaut.", "Producers are laughing all the way to the bank despite the 1-star newspaper ratings."]
     elif bo_score < 85 and rt_score >= 75:
-        return (
-            "A brilliant, critically acclaimed masterpiece that unfortunately found zero takers at the multiplex counters.",
-            "Superb directorial vision, but lacking the loud commercial hooks needed to survive outside the festival circuit."
-        )
+        lines1 = ["A brilliant, critically acclaimed masterpiece that unfortunately found zero takers at the ticket counters.", "An artistic triumph that was completely abandoned by the mainstream audience.", "The critics wept at its beauty, but the theater halls remained depressingly empty."]
+        lines2 = ["Superb directorial vision, but lacking the loud commercial hooks needed to survive the weekend.", "It will definitely sweep the award season, but it will lose the studio a lot of money.", "A cult classic in the making that just couldn't compete with the big blockbuster releases."]
     elif bo_score < 80 and rt_score < 60:
-        return (
-            "An unmitigated disaster that failed on every conceivable level of filmmaking arithmetic.",
-            "Zero on-screen chemistry, a dated screenplay, and flat music ensured empty seats by the evening show."
-        )
+        lines1 = ["An unmitigated disaster that failed on every conceivable level of filmmaking arithmetic.", "A colossal waste of budget, time, and talent. A career-ending flop for everyone involved.", "Audiences walked out at the intermission, and honestly, we don't blame them."]
+        lines2 = ["Zero on-screen chemistry, a dated screenplay, and flat music ensured empty seats by the evening show.", "The studio is already trying to hide this embarrassment on a streaming platform.", "Even the marketing team gave up trying to sell this cinematic trainwreck."]
     else:
-        return (
-            "A solid theatrical performer that hit all the standard commercial beats without taking any major risks.",
-            "Fans went home happy, critics gave it a passing grade, and the producers recovered their investment."
-        )
+        lines1 = ["A solid theatrical performer that hit all the standard commercial beats without taking any major risks.", "An entirely average weekend at the movies. Not a record-breaker, but not a flop either.", "It made its money back and kept the fans entertained, which is all anyone asked for."]
+        lines2 = ["Fans went home happy, critics gave it a passing grade, and the producers recovered their investment.", "A safe, predictable script executed with just enough competence to stay afloat.", "Forgettable but profitable. It will live on as a decent Sunday afternoon TV watch."]
+    return lines1[idx], lines2[idx]
 
 def determine_ott_platform(picks: dict[str, str], bo_score: float, rt_score: float) -> str:
     team = set(picks.values())
@@ -216,7 +211,7 @@ def determine_ott_platform(picks: dict[str, str], bo_score: float, rt_score: flo
     if bo_score > 105:
         return "**Amazon Prime Video 🔵** (Exclusive Post-Theatrical Festive Blockbuster Premiere)"
     if rt_score < 60:
-        return "**Zee5 / JioCinema 🟠** (Picked up quietly for the late-night action/masala catalog)"
+        return "**Zee5 / JioCinema 🟠** (Picked up quietly for the late-night catalog)"
     return "**Disney+ Hotstar 🟢** (Family Weekend Premiere Streaming Rights)"
 
 def draft_talent(role: str, name: str, movie_title: str, movie_year: int) -> None:
@@ -226,17 +221,19 @@ def draft_talent(role: str, name: str, movie_title: str, movie_year: int) -> Non
 
 def select_era(era_key: str):
     st.session_state.chosen_era = era_key
+    st.session_state.seen_movies = set() 
     st.session_state.current_movie = inject_release_window_and_roll()
 
 # --- INITIALIZATION ---
 if "chosen_era" not in st.session_state: st.session_state.chosen_era = None
 if "locked_picks" not in st.session_state: st.session_state.locked_picks = {}
 if "pick_origins" not in st.session_state: st.session_state.pick_origins = {}
+if "seen_movies" not in st.session_state: st.session_state.seen_movies = set()
 
 st.markdown(THEME_CSS, unsafe_allow_html=True)
 
 # ==========================================
-# SCREEN 1: ERA SELECTION LANDING PAGE
+# SCREEN 1: ERA SELECTION
 # ==========================================
 if st.session_state.chosen_era is None:
     st.markdown("<h1 style='text-align: center; font-size: 4rem; margin-bottom: 0;'>Box Office 100</h1>", unsafe_allow_html=True)
@@ -254,7 +251,7 @@ if st.session_state.chosen_era is None:
         st.button("All-Era Madness 🌪️", use_container_width=True, on_click=select_era, args=("All",))
 
 # ==========================================
-# SCREEN 2: THE DRAFT WAR ROOM
+# SCREEN 2: DRAFT WAR ROOM
 # ==========================================
 else:
     era_label = st.session_state.chosen_era if st.session_state.chosen_era != "All" else "All-Era Madness"
@@ -264,7 +261,6 @@ else:
     all_filled = len(st.session_state.locked_picks) == len(ROLES)
     left_col, right_col = st.columns([1.2, 1.5], gap="large")
 
-    # -- LEFT: ROSTER --
     with left_col:
         st.markdown("### Your Crew Roster")
         for role in ROLES:
@@ -288,7 +284,6 @@ else:
                     </div>
                     """, unsafe_allow_html=True)
 
-    # -- RIGHT: DRAFTING --
     with right_col:
         if not all_filled:
             current_film = st.session_state.current_movie
@@ -313,86 +308,85 @@ else:
     # ==========================================
     if all_filled:
         picks = st.session_state.locked_picks
+        team_dna = "".join(picks.values())
+        
+        # 🎲 THE INDUSTRY X-FACTOR (Luck is now exposed!)
+        luck_modifier = stable_range_score(team_dna + "luck", -10, 10)
+        
+        # Generate the fun label for the luck roll
+        if luck_modifier > 6: luck_label = "Viral Trailer/Hype 🚀"
+        elif luck_modifier > 2: luck_label = "Positive Buzz 👍"
+        elif luck_modifier >= -2: luck_label = "Standard Release 😐"
+        elif luck_modifier > -7: luck_label = "Mixed Press / Trolls 📉"
+        else: luck_label = "Massive Boycott / Ban 🚨"
+        
+        luck_display = f"+{luck_modifier}" if luck_modifier > 0 else f"{luck_modifier}"
+        
         role_scores = {role: dynamic_tier_score(name) for role, name in picks.items()}
         base_score_total = sum(role_scores.values())
         
-        # Synergy
         synergy_score = 0
         if "Shah Rukh Khan" in picks.values() and ("Aditya Chopra" in picks.values() or "Karan Johar" in picks.values()): synergy_score += 12
         if "S. S. Rajamouli" in picks.values() and "K. V. Vijayendra Prasad" in picks.values(): synergy_score += 12
-        box_office_score = base_score_total + synergy_score
-
-        # Apply Release Window Multipliers
-        window = picks.get("Release Window", "")
-        bo_mult = 1.0
-        rt_mod = 0.0
         
-        if "Solo Festival" in window:
-            bo_mult = 1.25
-        elif "Holiday Clash" in window:
-            bo_mult = 1.15
-            rt_mod = -5.0
-        elif "Hollywood" in window:
-            bo_mult = 0.85
-        elif "Off-Season" in window:
-            bo_mult = 0.65
+        box_office_score = base_score_total + synergy_score + luck_modifier
 
-        # Critical Acclaim Math
+        window = picks.get("Release Window", "")
+        bo_mult = 1.0; rt_mod = 0.0
+        if "Solo Festival" in window: bo_mult = 1.25
+        elif "Holiday Clash" in window: bo_mult = 1.15; rt_mod = -5.0
+        elif "Hollywood" in window: bo_mult = 0.85
+        elif "Off-Season" in window: bo_mult = 0.65
+
         rt_score = (base_score_total / len(picks)) * CRITIC_BASE_MULTIPLIER + (synergy_score * CRITIC_SYNERGY_MULTIPLIER)
-        rt_score += rt_mod
+        rt_score += rt_mod + luck_modifier 
         rt_score = clamp(rt_score, 12.0, 99.0)
         
-        # Opening Day Math
         score_index = clamp((box_office_score - OPENING_SCORE_BASE) / OPENING_SCORE_SPAN, 0.0, 1.0)
         opening_day = (OPENING_MIN_CR + (score_index * OPENING_LINEAR_RANGE_CR)) * bo_mult
         if box_office_score > 130: opening_day += min(10.0, (box_office_score - 130) * 0.35)
         
-        # Exponential Word of Mouth Formula
-        if rt_score >= 90:
-            wom = 7.0
-        elif rt_score < 40:
-            wom = 0.5
-        else:
-            wom = 2.0 + ((rt_score - 40) / 50.0) * 4.5
+        if rt_score >= 90: wom = 7.0
+        elif rt_score < 40: wom = 0.5
+        else: wom = 2.0 + ((rt_score - 40) / 50.0) * 4.5
             
         lifetime_domestic = opening_day * wom
-        
-        # Worldwide & Era Scaling Math
         global_count = len(set(picks.values()) & GLOBAL_DRAWS)
         overseas_multiplier = 1.30 + score_index * 0.35 + (global_count * 0.85)
         
         era = st.session_state.chosen_era
         scaler = ERA_SCALERS.get(era, 1.0)
-        
         worldwide = (lifetime_domestic * overseas_multiplier) * scaler
 
-        # Identity & Review Engine
         movie_title = generate_cinematic_title(picks)
-        rev_line1, rev_line2 = generate_trade_review(box_office_score, rt_score)
+        rev_line1, rev_line2 = generate_trade_review(box_office_score, rt_score, team_dna)
         ott = determine_ott_platform(picks, box_office_score, rt_score)
 
         st.markdown("---")
         st.markdown(
             f"""
             <div style='text-align: center; margin: 3rem 0;'>
-                <h4 style='color: #a9b4d0; text-transform: uppercase; letter-spacing: 2px;'>A {picks['Director']} Film</h4>
+                <h4 style='color: #a9b4d0; text-transform: uppercase; letter-spacing: 2px;'>A {picks.get('Director', 'Visionary')} Film</h4>
                 <h1 style='font-size: 4rem; color: #fff; text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.5); font-family: "Georgia", serif;'>"{movie_title}"</h1>
             </div>
             """, unsafe_allow_html=True)
         
-        # Trade Review Box
         st.markdown(f"<div class='review-box'><strong>Trade Analyst Review:</strong><br>\"{rev_line1} {rev_line2}\"</div>", unsafe_allow_html=True)
 
-        # Financials
-        metrics = st.columns(5)
-        metrics[0].metric("Box Office Score", f"{box_office_score:.1f}")
+        st.markdown("### 📊 Theatrical Run Analysis")
+        # --- NEW 3x2 METRICS GRID ---
+        row1 = st.columns(3)
+        row1[0].metric("Base Box Office Score", f"{box_office_score:.1f}")
+        row1[1].metric(f"Industry X-Factor ({luck_label})", f"{luck_display} pts")
         rt_emoji = "🍅 Fresh" if rt_score >= 60 else "🤢 Splatted"
-        metrics[1].metric(rt_emoji, f"{rt_score:.0f}%")
-        metrics[2].metric("Opening Day", format_inr_crore(opening_day))
-        metrics[3].metric("Lifetime Domestic", format_inr_crore(lifetime_domestic))
-        metrics[4].metric("Worldwide Gross", format_inr_crore(worldwide))
+        row1[2].metric(rt_emoji, f"{rt_score:.0f}%")
         
-        # OTT Banner
+        row2 = st.columns(3)
+        row2[0].metric("Opening Day", format_inr_crore(opening_day))
+        row2[1].metric("Lifetime Domestic", format_inr_crore(lifetime_domestic))
+        row2[2].metric("Worldwide Gross", format_inr_crore(worldwide))
+        # ----------------------------
+
         st.markdown(f"<div class='ott-banner'><span style='color: #99a2be; font-size: 0.9rem; text-transform: uppercase;'>Streaming Rights Sold To:</span><br><span style='font-size: 1.2rem;'>{ott}</span></div>", unsafe_allow_html=True)
         
         st.write("")
@@ -401,6 +395,7 @@ else:
             if st.button("🔄 Play Era Again", use_container_width=True):
                 st.session_state.locked_picks = {}
                 st.session_state.pick_origins = {}
+                st.session_state.seen_movies = set() 
                 st.session_state.current_movie = inject_release_window_and_roll()
                 st.rerun()
         with c2:
@@ -408,4 +403,5 @@ else:
                 st.session_state.chosen_era = None
                 st.session_state.locked_picks = {}
                 st.session_state.pick_origins = {}
+                st.session_state.seen_movies = set() 
                 st.rerun()
